@@ -32,6 +32,8 @@ import {
   Truck,
   Users,
   Zap,
+  ChevronDown,
+  ChevronUp,
 } from 'lucide-react'
 
 // 05 — API Endpoints (Realistically structured REST primitives)
@@ -296,6 +298,12 @@ export default function EnginePage() {
   const [copiedInstall, setCopiedInstall] = useState(false)
   const [copiedSnippet, setCopiedSnippet] = useState(false)
   const [isReplaying, setIsReplaying] = useState(false)
+
+  // Mobile Progressive Disclosure States
+  const [expandedPillar, setExpandedPillar] = useState<number | null>(null)
+  const [activeWorkflowStep, setActiveWorkflowStep] = useState<number>(2) // default to 'held' (03)
+  const [expandedArchTier, setExpandedArchTier] = useState<number | null>(null)
+  const [expandedFooterGroup, setExpandedFooterGroup] = useState<string | null>(null)
 
   // API Playground State
   const [selectedEndpoint, setSelectedEndpoint] = useState(0)
@@ -647,7 +655,7 @@ export default function EnginePage() {
               ===================================================================== */}
           <div className="engine-pillars-v2" id="capabilities">
             {/* Pillar 01 */}
-            <article className="pillar-card-v2">
+            <article className={`pillar-card-v2 ${expandedPillar === 0 ? 'is-expanded' : ''}`}>
               <div className="pillar-head">
                 <div className="pillar-icon-wrap icon-teal">
                   <Code2 className="pillar-icon" />
@@ -656,9 +664,18 @@ export default function EnginePage() {
               </div>
               <h3 className="pillar-title">Connexion à votre produit</h3>
               <p className="pillar-desc">
-                Connectez votre application existante via une API REST canonique, des webhooks asynchrones et des SDKs typés (Node.js/TypeScript, Python, PHP).
+                Connectez votre application via API REST canonique, webhooks asynchrones et SDKs typés.
               </p>
-              <ul className="pillar-feature-list">
+              <button
+                type="button"
+                className="mobile-pillar-toggle"
+                onClick={() => setExpandedPillar(expandedPillar === 0 ? null : 0)}
+                aria-expanded={expandedPillar === 0}
+              >
+                <span>{expandedPillar === 0 ? 'Masquer les détails' : 'Détails techniques'}</span>
+                {expandedPillar === 0 ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
+              <ul className={`pillar-feature-list ${expandedPillar === 0 ? 'show-mobile' : ''}`}>
                 <li>
                   <Check className="pillar-check" />
                   <span>SDKs natifs et spécification OpenAPI 3.1</span>
@@ -678,7 +695,7 @@ export default function EnginePage() {
             </article>
 
             {/* Pillar 02 */}
-            <article className="pillar-card-v2">
+            <article className={`pillar-card-v2 ${expandedPillar === 1 ? 'is-expanded' : ''}`}>
               <div className="pillar-head">
                 <div className="pillar-icon-wrap icon-gold">
                   <GitBranch className="pillar-icon" />
@@ -687,9 +704,18 @@ export default function EnginePage() {
               </div>
               <h3 className="pillar-title">États &amp; Transitions</h3>
               <p className="pillar-desc">
-                Définissez les états de la transaction, les conditions de transition, les délais d’inspection et les règles de libération sous séquestre.
+                Définissez les états, les conditions de transition, les délais d’inspection et le déblocage.
               </p>
-              <ul className="pillar-feature-list">
+              <button
+                type="button"
+                className="mobile-pillar-toggle"
+                onClick={() => setExpandedPillar(expandedPillar === 1 ? null : 1)}
+                aria-expanded={expandedPillar === 1}
+              >
+                <span>{expandedPillar === 1 ? 'Masquer les détails' : 'Détails techniques'}</span>
+                {expandedPillar === 1 ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
+              <ul className={`pillar-feature-list ${expandedPillar === 1 ? 'show-mobile' : ''}`}>
                 <li>
                   <Check className="pillar-check" />
                   <span>Automates d’états finis déterministes</span>
@@ -709,7 +735,7 @@ export default function EnginePage() {
             </article>
 
             {/* Pillar 03 */}
-            <article className="pillar-card-v2">
+            <article className={`pillar-card-v2 ${expandedPillar === 2 ? 'is-expanded' : ''}`}>
               <div className="pillar-head">
                 <div className="pillar-icon-wrap icon-emerald">
                   <ShieldCheck className="pillar-icon" />
@@ -718,9 +744,18 @@ export default function EnginePage() {
               </div>
               <h3 className="pillar-title">Règles métier &amp; Validation</h3>
               <p className="pillar-desc">
-                Appliquez vos politiques de validation, les autorisations de déblocage, les calculs de commissions et les workflows d’exception.
+                Appliquez vos règles de validation, autorisations de déblocage et workflows d’exception.
               </p>
-              <ul className="pillar-feature-list">
+              <button
+                type="button"
+                className="mobile-pillar-toggle"
+                onClick={() => setExpandedPillar(expandedPillar === 2 ? null : 2)}
+                aria-expanded={expandedPillar === 2}
+              >
+                <span>{expandedPillar === 2 ? 'Masquer les détails' : 'Détails techniques'}</span>
+                {expandedPillar === 2 ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
+              <ul className={`pillar-feature-list ${expandedPillar === 2 ? 'show-mobile' : ''}`}>
                 <li>
                   <Check className="pillar-check" />
                   <span>Conditions de validation bilatérale</span>
@@ -740,7 +775,7 @@ export default function EnginePage() {
             </article>
 
             {/* Pillar 04 */}
-            <article className="pillar-card-v2">
+            <article className={`pillar-card-v2 ${expandedPillar === 3 ? 'is-expanded' : ''}`}>
               <div className="pillar-head">
                 <div className="pillar-icon-wrap icon-blue">
                   <Activity className="pillar-icon" />
@@ -749,9 +784,18 @@ export default function EnginePage() {
               </div>
               <h3 className="pillar-title">Événements &amp; Rapprochement</h3>
               <p className="pillar-desc">
-                Conservez l’historique exhaustif des opérations, les événements horodatés et générez des rapports de rapprochement structurés.
+                Conservez l’historique exhaustif, les événements horodatés et rapports de réconciliation.
               </p>
-              <ul className="pillar-feature-list">
+              <button
+                type="button"
+                className="mobile-pillar-toggle"
+                onClick={() => setExpandedPillar(expandedPillar === 3 ? null : 3)}
+                aria-expanded={expandedPillar === 3}
+              >
+                <span>{expandedPillar === 3 ? 'Masquer les détails' : 'Détails techniques'}</span>
+                {expandedPillar === 3 ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
+              <ul className={`pillar-feature-list ${expandedPillar === 3 ? 'show-mobile' : ''}`}>
                 <li>
                   <Check className="pillar-check" />
                   <span>Journalisation d’audit complète</span>
@@ -798,7 +842,7 @@ export default function EnginePage() {
           {/* 3 Architecture Layers with Directional Connectors */}
           <div className="arch-topology-grid">
             {/* Layer 01: Client Products */}
-            <div className="arch-node-card node-client">
+            <div className={`arch-node-card node-client ${expandedArchTier === 0 ? 'is-expanded' : ''}`}>
               <div className="arch-node-head">
                 <div className="arch-node-icon-wrap">
                   <Smartphone className="arch-node-icon" />
@@ -809,7 +853,16 @@ export default function EnginePage() {
               <p className="arch-node-desc">
                 Marketplaces B2B/C2C, applications e-commerce, plateformes de services ou outils SaaS.
               </p>
-              <div className="arch-node-features">
+              <button
+                type="button"
+                className="mobile-arch-toggle"
+                onClick={() => setExpandedArchTier(expandedArchTier === 0 ? null : 0)}
+                aria-expanded={expandedArchTier === 0}
+              >
+                <span>{expandedArchTier === 0 ? 'Masquer les spécifications' : 'Voir les spécifications'}</span>
+                {expandedArchTier === 0 ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
+              <div className={`arch-node-features ${expandedArchTier === 0 ? 'show-mobile' : ''}`}>
                 <div className="arch-feature-pill">
                   <Check className="pill-check" />
                   <span>Interface utilisateur &amp; Expérience client</span>
@@ -841,7 +894,7 @@ export default function EnginePage() {
             </div>
 
             {/* Layer 02: Dinari Engine Core (Highlighted Hub) */}
-            <div className="arch-node-card node-core">
+            <div className={`arch-node-card node-core ${expandedArchTier === 1 ? 'is-expanded' : ''}`}>
               <div className="arch-node-head">
                 <div className="arch-node-icon-wrap icon-gold-wrap">
                   <Cpu className="arch-node-icon icon-gold-color" />
@@ -852,7 +905,16 @@ export default function EnginePage() {
               <p className="arch-node-desc desc-light">
                 Le moteur d’orchestration de transaction. Applique vos règles métier, gère les états sous séquestre et coordonne les transitions.
               </p>
-              <div className="arch-node-features">
+              <button
+                type="button"
+                className="mobile-arch-toggle toggle-gold"
+                onClick={() => setExpandedArchTier(expandedArchTier === 1 ? null : 1)}
+                aria-expanded={expandedArchTier === 1}
+              >
+                <span>{expandedArchTier === 1 ? 'Masquer les modules' : 'Voir les modules de contrôle'}</span>
+                {expandedArchTier === 1 ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
+              <div className={`arch-node-features ${expandedArchTier === 1 ? 'show-mobile' : ''}`}>
                 <div className="arch-feature-pill pill-gold">
                   <Check className="pill-check icon-gold-color" />
                   <span>Automate à états finis (Transitions déterministes)</span>
@@ -888,7 +950,7 @@ export default function EnginePage() {
             </div>
 
             {/* Layer 03: Financial & Operational Infrastructure */}
-            <div className="arch-node-card node-bank">
+            <div className={`arch-node-card node-bank ${expandedArchTier === 2 ? 'is-expanded' : ''}`}>
               <div className="arch-node-head">
                 <div className="arch-node-icon-wrap icon-teal-wrap">
                   <Server className="arch-node-icon icon-teal-color" />
@@ -899,7 +961,16 @@ export default function EnginePage() {
               <p className="arch-node-desc">
                 Réseaux de paiement existants, transporteurs logistiques et banques partenaires requises par le déploiement.
               </p>
-              <div className="arch-node-features">
+              <button
+                type="button"
+                className="mobile-arch-toggle"
+                onClick={() => setExpandedArchTier(expandedArchTier === 2 ? null : 2)}
+                aria-expanded={expandedArchTier === 2}
+              >
+                <span>{expandedArchTier === 2 ? 'Masquer les connexions' : 'Voir les connexions'}</span>
+                {expandedArchTier === 2 ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
+              <div className={`arch-node-features ${expandedArchTier === 2 ? 'show-mobile' : ''}`}>
                 <div className="arch-feature-pill">
                   <Check className="pill-check" />
                   <span>Passerelles &amp; Réseaux bancaires</span>
@@ -1134,19 +1205,14 @@ export default function EnginePage() {
               <h4>De l’initiation de la commande jusqu’à la libération des fonds</h4>
             </div>
 
-            <div
-              className="pipeline-steps-grid"
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
-                gap: '12px',
-              }}
-            >
+            {/* Desktop Grid & Mobile Interactive Flow */}
+            <div className="pipeline-steps-grid desktop-only">
               {stateMachineSteps.map((stepItem, idx) => (
                 <div
                   key={stepItem.state}
-                  className={`pipeline-node ${idx === 2 ? 'pipeline-node-active' : ''}`}
-                  style={{ minHeight: '110px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+                  className={`pipeline-node ${idx === activeWorkflowStep ? 'pipeline-node-active' : ''}`}
+                  onClick={() => setActiveWorkflowStep(idx)}
+                  style={{ cursor: 'pointer', minHeight: '110px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div className="pipeline-node-icon" style={{ width: '28px', height: '28px', fontSize: '11px' }}>
@@ -1162,6 +1228,44 @@ export default function EnginePage() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Mobile Vertical Step Flow */}
+            <div className="mobile-state-flow mobile-only">
+              {stateMachineSteps.map((stepItem, idx) => {
+                const isActive = idx === activeWorkflowStep
+                return (
+                  <div key={stepItem.state} className="mobile-flow-item">
+                    <button
+                      type="button"
+                      className={`mobile-flow-node ${isActive ? 'is-active' : ''}`}
+                      onClick={() => setActiveWorkflowStep(idx)}
+                      aria-expanded={isActive}
+                    >
+                      <div className="mobile-flow-node-left">
+                        <div className="mobile-flow-idx">0{idx + 1}</div>
+                        <div className="mobile-flow-text">
+                          <strong>{stepItem.label}</strong>
+                          <code>{stepItem.state}</code>
+                        </div>
+                      </div>
+                      <div className="mobile-flow-action">
+                        {isActive ? <ChevronUp className="w-3.5 h-3.5 text-teal" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                      </div>
+                    </button>
+                    {isActive && (
+                      <div className="mobile-flow-detail">
+                        <p>{stepItem.desc}</p>
+                      </div>
+                    )}
+                    {idx < stateMachineSteps.length - 1 && (
+                      <div className="mobile-flow-divider">
+                        <ArrowDown className="mobile-flow-arrow" />
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>
@@ -1408,9 +1512,19 @@ export default function EnginePage() {
               </div>
             </div>
 
-            <div className="footer-col">
-              <h4 className="footer-col-title">Écosystème Dinari</h4>
-              <ul className="footer-link-list">
+            <div className={`footer-col ${expandedFooterGroup === 'ecosystem' ? 'is-expanded' : ''}`}>
+              <button
+                type="button"
+                className="footer-col-mobile-btn"
+                onClick={() => setExpandedFooterGroup(expandedFooterGroup === 'ecosystem' ? null : 'ecosystem')}
+                aria-expanded={expandedFooterGroup === 'ecosystem'}
+              >
+                <h4 className="footer-col-title">Écosystème Dinari</h4>
+                <div className="mobile-only footer-accordion-chevron">
+                  {expandedFooterGroup === 'ecosystem' ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                </div>
+              </button>
+              <ul className={`footer-link-list ${expandedFooterGroup === 'ecosystem' ? 'show-mobile' : ''}`}>
                 <li><a href="/#download">Application Dinari</a></li>
                 <li><a href="/#fonctionnement">Comment ça marche</a></li>
                 <li><a href="/#avantages">Protection Acheteur &amp; Vendeur</a></li>
@@ -1419,9 +1533,19 @@ export default function EnginePage() {
               </ul>
             </div>
 
-            <div className="footer-col">
-              <h4 className="footer-col-title">Dinari Engine (B2B)</h4>
-              <ul className="footer-link-list">
+            <div className={`footer-col ${expandedFooterGroup === 'engine' ? 'is-expanded' : ''}`}>
+              <button
+                type="button"
+                className="footer-col-mobile-btn"
+                onClick={() => setExpandedFooterGroup(expandedFooterGroup === 'engine' ? null : 'engine')}
+                aria-expanded={expandedFooterGroup === 'engine'}
+              >
+                <h4 className="footer-col-title">Dinari Engine (B2B)</h4>
+                <div className="mobile-only footer-accordion-chevron">
+                  {expandedFooterGroup === 'engine' ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                </div>
+              </button>
+              <ul className={`footer-link-list ${expandedFooterGroup === 'engine' ? 'show-mobile' : ''}`}>
                 <li><a href="#why-engine">Pourquoi Engine</a></li>
                 <li><a href="#capabilities">Fonctionnalités &amp; Piliers</a></li>
                 <li><a href="#architecture">Architecture &amp; Topologie</a></li>
@@ -1430,9 +1554,19 @@ export default function EnginePage() {
               </ul>
             </div>
 
-            <div className="footer-col">
-              <h4 className="footer-col-title">Développeurs &amp; Contact</h4>
-              <ul className="footer-link-list">
+            <div className={`footer-col ${expandedFooterGroup === 'devs' ? 'is-expanded' : ''}`}>
+              <button
+                type="button"
+                className="footer-col-mobile-btn"
+                onClick={() => setExpandedFooterGroup(expandedFooterGroup === 'devs' ? null : 'devs')}
+                aria-expanded={expandedFooterGroup === 'devs'}
+              >
+                <h4 className="footer-col-title">Développeurs &amp; Contact</h4>
+                <div className="mobile-only footer-accordion-chevron">
+                  {expandedFooterGroup === 'devs' ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                </div>
+              </button>
+              <ul className={`footer-link-list ${expandedFooterGroup === 'devs' ? 'show-mobile' : ''}`}>
                 <li><a href="#api"><Terminal className="footer-mini-icon" /><span>Primitives d’API</span></a></li>
                 <li><a href="#api"><Code2 className="footer-mini-icon" /><span>Environnement Sandbox</span></a></li>
                 <li><a href="#use-cases">Cas d’usage plateformes</a></li>
@@ -1460,6 +1594,20 @@ export default function EnginePage() {
           </div>
         </div>
       </footer>
+
+      {/* Mobile Sticky Quick Action Bar */}
+      <aside className="engine-mobile-sticky-bar mobile-only" aria-label="Actions rapides">
+        <div className="engine-mobile-sticky-inner">
+          <a href="#api" className="button button-gold engine-sticky-btn">
+            <Terminal className="w-3.5 h-3.5" />
+            <span>Explorer l’API</span>
+          </a>
+          <a href="mailto:contact@dinari.com" className="button button-navy engine-sticky-btn secondary">
+            <Mail className="w-3.5 h-3.5" />
+            <span>Contacter</span>
+          </a>
+        </div>
+      </aside>
     </main>
   )
 }
