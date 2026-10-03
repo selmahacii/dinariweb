@@ -381,10 +381,6 @@ function PhoneMockup({ className = '' }: { className?: string }) {
           />
           <div className="phone-reflection" />
           <span className="live-status-ping" title="Livraison en cours" />
-          <div className="phone-screen-pill">
-            <span className="phone-pill-beacon" />
-            <span>Traçabilité 100%</span>
-          </div>
         </div>
       </div>
     </div>
