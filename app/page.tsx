@@ -48,53 +48,65 @@ import {
 
 const APK_DOWNLOAD_URL = '/downloads/dinari-v1.0.5.apk'
 
+const problemPointsBuyer = [
+  'Et si le colis reçu ne correspond pas à ce qui a été promis ?',
+  'Et si le produit arrive endommagé ou défectueux ?',
+  'Payer en avance comporte un risque d’abandon ou d’arnaque.',
+]
+
+const problemPointsSeller = [
+  'Et si j’expédie le colis et que l’acheteur refuse de payer ?',
+  'Les retours de livraison coûtent cher et bloquent la marchandise.',
+  'Attendre l’argent du transporteur crée de l’incertitude de trésorerie.',
+]
+
 const featureItems = [
   {
     icon: ShieldCheck,
-    tag: 'Sécurité bancaire',
-    title: 'Paiement ultra-sécurisé',
-    desc: 'Chaque transaction fait l’objet de contrôles stricts anti-fraude avec authentification renforcée et chiffrement AES-256 de bout en bout.',
-    badge: 'Chiffrement AES-256 & 3D Secure',
+    tag: 'Protection Acheteur',
+    title: 'Vérification avant déblocage',
+    desc: 'L’acheteur valide les conditions et la réception de son produit avant que les fonds ne soient transmis au vendeur.',
+    badge: 'Fonds protégés',
     accent: 'teal',
   },
   {
     icon: Lock,
-    tag: 'Garantie Escrow',
-    title: 'Séquestre Dinari automatique',
-    desc: 'Vos fonds sont conservés sur un compte séquestre neutre et ne sont débloqués qu’après réception et inspection conforme du colis.',
-    badge: 'Fonds protégés jusqu’à validation',
+    tag: 'Protection Vendeur',
+    title: 'Transaction garantie à l’expédition',
+    desc: 'Le vendeur a la confirmation formelle que le montant est réservé avant de confier la marchandise au transporteur.',
+    badge: 'Paiement garanti',
     accent: 'gold',
   },
   {
     icon: Wallet,
     tag: 'Gestion DZD',
-    title: 'Wallet digital en temps réel',
-    desc: 'Un portefeuille dédié en dinars algériens pour recharger votre solde, recevoir vos paiements et piloter vos opérations instantanément.',
-    badge: 'Solde DZD disponible sans délai',
+    title: 'Wallet digital en dinars (DZD)',
+    desc: 'Un portefeuille électronique pour recharger son solde, régler ses commandes et recevoir ses règlements en toute clarté.',
+    badge: 'Solde DZD immédiat',
     accent: 'teal',
   },
   {
     icon: Activity,
-    tag: 'Traçabilité Yalidine',
-    title: 'Suivi transparent & horodaté',
-    desc: 'Chaque étape est documentée et synchronisée en temps réel avec le transporteur, du premier scan jusqu’à la livraison finale.',
-    badge: 'Statuts synchronisés en direct',
+    tag: 'Traçabilité',
+    title: 'Suivi transparent des étapes',
+    desc: 'Chaque statut est synchronisé en temps réel avec le transporteur, du premier scan jusqu’à la confirmation finale.',
+    badge: 'Statuts synchronisés',
     accent: 'teal',
   },
   {
     icon: BadgeCheck,
-    tag: 'Confiance & KYC',
-    title: 'Vérification certifiée des vendeurs',
-    desc: 'Commerçants audités avec pièces d’identité, registre de commerce et historique transparent des avis clients vérifiés.',
-    badge: 'Marchands certifiés & notés',
+    tag: 'Transparence',
+    title: 'Conditions de règlement définies',
+    desc: 'Les modalités de libération et les délais d’inspection sont convenus à l’avance pour éviter tout malentendu.',
+    badge: 'Conditions prévisibles',
     accent: 'gold',
   },
   {
     icon: Scale,
-    tag: 'Médiation 24/7',
-    title: 'Gestion équitable des litiges',
-    desc: 'En cas d’anomalie ou de non-conformité, notre équipe d’arbitrage intervient avec impartialité pour protéger vos droits.',
-    badge: 'Support & arbitrage dédié',
+    tag: 'Résolution',
+    title: 'Gestion des anomalies & litiges',
+    desc: 'En cas de non-conformité constatée ou d’anomalie de livraison, notre équipe intervient pour trouver une solution équitable.',
+    badge: 'Médiation dédiée',
     accent: 'teal',
   },
 ]
@@ -102,25 +114,25 @@ const featureItems = [
 const flowSteps = [
   {
     num: '01',
-    tag: 'Initiation',
-    title: 'Acheteur',
-    desc: 'Choisit son produit et initie sa commande en toute transparence.',
-    badge: 'Panier validé',
-    Icon: Smartphone,
+    tag: 'Commande',
+    title: 'Commande',
+    desc: 'L’acheteur sélectionne son produit et initie sa commande avec des conditions claires.',
+    badge: 'Accord défini',
+    Icon: ShoppingBag,
   },
   {
     num: '02',
-    tag: 'Vérification',
-    title: 'Commande',
-    desc: 'Les détails, montants et conditions de la transaction sont vérifiés.',
-    badge: 'Contrôles KYC',
-    Icon: Code2,
+    tag: 'Paiement',
+    title: 'Paiement',
+    desc: 'L’acheteur provisionne la transaction via son wallet Dinari ou sa carte.',
+    badge: 'Paiement réservé',
+    Icon: CreditCard,
   },
   {
     num: '03',
-    tag: 'Séquestre clé',
-    title: 'Transaction',
-    desc: 'Le montant est sécurisé et séquestré par Dinari jusqu’à livraison.',
+    tag: 'Séquestre',
+    title: 'Séquestre',
+    desc: 'Les fonds sont retenus en toute sécurité et ne sont accessibles à personne sans validation.',
     badge: 'Fonds protégés',
     Icon: ShieldCheck,
     highlight: true,
@@ -128,116 +140,116 @@ const flowSteps = [
   {
     num: '04',
     tag: 'Expédition',
-    title: 'Vendeur',
-    desc: 'Le marchand prépare la commande et assure la livraison avec suivi.',
-    badge: 'En route · Yalidine',
-    Icon: GitBranch,
+    title: 'Expédition',
+    desc: 'Le vendeur expédie la marchandise avec l’assurance que le paiement est déjà sécurisé.',
+    badge: 'Suivi synchronisé',
+    Icon: Truck,
   },
   {
     num: '05',
-    tag: 'Clôture',
-    title: 'Finalisation',
-    desc: 'Réception confirmée, fonds débloqués et cycle clôturé avec succès.',
-    badge: 'Fonds libérés',
-    Icon: Check,
+    tag: 'Réception',
+    title: 'Réception',
+    desc: 'L’acheteur reçoit le colis, vérifie la conformité et valide la commande.',
+    badge: 'Validation client',
+    Icon: CheckCircle2,
   },
 ]
 
 const transactionSteps = [
   {
     num: '01',
-    title: 'Acheteur crée une commande',
-    status: 'INITIÉE',
-    badge: 'Panier validé',
-    desc: 'L’acheteur sélectionne son produit et valide son intention d’achat. La commande est immédiatement enregistrée dans le registre Dinari avec un contrat de séquestre unique.',
+    title: 'Commande',
+    status: 'COMMANDE',
+    badge: 'Accord convenu',
+    desc: 'L’acheteur et le vendeur conviennent du produit, du montant et des conditions de la transaction. La commande est enregistrée avec des termes transparents.',
     amount: '25 000 DZD',
-    escrow: 'En attente de provision',
-    carrier: 'Yalidine Express · Prêt',
-    guarantee: 'Protocole Dinari Shield',
+    escrow: 'En attente de paiement',
+    carrier: 'Transporteur · Préparé',
+    guarantee: 'Conditions convenues',
     points: [
-      'Validation transparente du montant et des articles',
-      'Émission instantanée du contrat de séquestre temporaire',
-      'Notification push envoyée en temps réel au vendeur',
+      'Validation claire du montant et des détails du produit',
+      'Conditions de validation et délais d’inspection définis',
+      'Notification envoyée en direct aux deux parties',
     ],
   },
   {
     num: '02',
-    title: 'Paiement initié & sécurisé',
-    status: 'EN ATTENTE',
-    badge: 'Authentification 3D',
-    desc: 'L’acheteur provisionne la commande via son wallet Dinari ou carte CIB/Edahabia. Les contrôles de sécurité et anti-fraude s’exécutent avant tout engagement.',
+    title: 'Paiement',
+    status: 'PAIEMENT',
+    badge: 'Provision vérifiée',
+    desc: 'L’acheteur effectue le paiement depuis son solde Dinari ou sa carte. Les fonds sont vérifiés avant toute mise en route de la commande.',
     amount: '25 000 DZD',
-    escrow: 'Contrôle bancaire en cours',
-    carrier: 'Bordereau en préparation',
-    guarantee: 'Chiffrement AES-256',
+    escrow: 'Contrôle de provision OK',
+    carrier: 'En attente de prise en charge',
+    guarantee: 'Transaction protégée',
     points: [
-      'Contrôle automatique de solvabilité et d’identité',
-      'Authentification forte OTP / 3D Secure',
-      'Vérification des règles d’idempotence anti-doublon',
+      'Contrôle de disponibilité des fonds',
+      'Authentification sécurisée de l’acheteur',
+      'Confirmation immédiate de la commande',
     ],
   },
   {
     num: '03',
-    title: 'Montant réservé sous séquestre',
+    title: 'Séquestre',
     status: 'SÉQUESTRÉ',
-    badge: '100% protégé',
-    desc: 'Les 25 000 DZD sont bloqués sur le compte tiers séquestre Dinari. Le vendeur est garanti d’être payé dès livraison, et l’acheteur est garanti de ne pas perdre ses fonds.',
+    badge: 'Fonds protégés',
+    desc: 'Le montant est conservé sous séquestre : il n’est débité ni au profit immédiat du vendeur, ni perdu pour l’acheteur. La transaction est sécurisée.',
     amount: '25 000 DZD',
-    escrow: 'Fonds bloqués sur compte tiers',
-    carrier: 'Bordereau #YAL-9824 généré',
-    guarantee: 'Garantie irrévocable Dinari',
+    escrow: 'Fonds conservés sous séquestre',
+    carrier: 'Bordereau d’expédition émis',
+    guarantee: 'Garantie bilatérale Dinari',
     points: [
-      'Fonds 100% isolés et intouchables sans validation',
-      'Garantie formelle de solvabilité notifiée au marchand',
-      'Acheteur protégé contre les fraudes et non-conformités',
+      'Montant immobilisé jusqu’à confirmation de livraison',
+      'Vendeur notifié que le paiement est garanti',
+      'Acheteur garanti que les fonds ne sont pas transmis prématurément',
     ],
   },
   {
     num: '04',
-    title: 'Vendeur prépare & expédie',
-    status: 'EN TRANSIT',
+    title: 'Expédition',
+    status: 'EXPÉDITION',
     badge: 'Colis en route',
-    desc: 'Rassuré par le séquestre actif, le marchand emballe la commande et la confie au transporteur. Le numéro de suivi Yalidine est synchronisé en direct.',
+    desc: 'Le vendeur prépare la commande et la confie au service de livraison. L’acheteur et le vendeur suivent ensemble l’acheminement du colis.',
     amount: '25 000 DZD',
     escrow: 'Séquestre actif (en transit)',
-    carrier: 'Yalidine · En acheminement (Alger)',
-    guarantee: 'Suivi colis horodaté',
+    carrier: 'Transporteur · En acheminement',
+    guarantee: 'Suivi transparent',
     points: [
-      'Colis scanné au hub logistique avec preuve de dépôt',
-      'Géolocalisation et statuts d’expédition en temps réel',
-      'Avis d’arrivée envoyé par SMS à l’acheteur',
+      'Prise en charge par le transporteur avec numéro de suivi',
+      'Mises à jour d’état consultables par les deux parties',
+      'Avis d’arrivée notifié à l’acheteur',
     ],
   },
   {
     num: '05',
-    title: 'Livraison & inspection conforme',
-    status: 'RÉCEPTIONNÉ',
-    badge: 'Inspection OK',
-    desc: 'L’acheteur réceptionne le colis en main propre, vérifie sa parfaite conformité, puis confirme la réception sur son application Dinari pour autoriser le déblocage.',
+    title: 'Réception & Validation',
+    status: 'RÉCEPTION',
+    badge: 'Inspection effectuée',
+    desc: 'L’acheteur réceptionne le colis, vérifie sa conformité par rapport à la commande et confirme la réception pour autoriser le déblocage.',
     amount: '25 000 DZD',
-    escrow: 'Accord de déblocage initié',
-    carrier: 'Colis livré avec signature client',
-    guarantee: 'Délai d’inspection garanti',
+    escrow: 'Validation confirmée',
+    carrier: 'Colis remis à destination',
+    guarantee: 'Contrôle à la livraison',
     points: [
-      'Remise physique contre signature sécurisée',
-      'Contrôle de conformité de l’article par l’acheteur',
-      'Validation du déblocage en 1 clic sur l’application',
+      'Remise physique du colis à l’acheteur',
+      'Vérification de la conformité du produit reçu',
+      'Confirmation de validation par l’acheteur',
     ],
   },
   {
     num: '06',
-    title: 'Fonds débloqués & cycle finalisé',
-    status: 'FINALISÉE',
-    badge: 'Cycle clôturé',
-    desc: 'Le séquestre est levé : les 25 000 DZD sont immédiatement crédités sur le solde disponible du vendeur. Reçu officiel généré et réputations mutuelles mises à jour.',
+    title: 'Règlement',
+    status: 'RÈGLEMENT',
+    badge: 'Transaction clôturée',
+    desc: 'Une fois la validation effectuée, les fonds sous séquestre sont débloqués et immédiatement crédités sur le solde disponible du vendeur.',
     amount: '25 000 DZD',
-    escrow: 'Fonds débloqués et crédités',
-    carrier: 'Livraison clôturée avec succès',
-    guarantee: 'Reçu officiel téléchargeable',
+    escrow: 'Fonds débloqués & crédités',
+    carrier: 'Livraison clôturée',
+    guarantee: 'Règlement effectué',
     points: [
-      'Versement instantané sur le wallet DZD du vendeur',
-      'Émission de la facture et du justificatif de transaction',
-      'Clôture irrévocable du ledger financier',
+      'Crédit immédiat sur le wallet du vendeur',
+      'Reçu numérique récapitulatif délivré aux deux parties',
+      'Clôture définitive de la transaction',
     ],
   },
 ]
@@ -245,50 +257,50 @@ const transactionSteps = [
 const architectureItems = [
   {
     title: 'Funding check',
-    tag: 'SOLVABILITÉ',
-    desc: 'Vérifie en temps réel que les conditions de provision et les plafonds nécessaires à l’opération sont strictement réunis avant tout engagement.',
+    tag: 'PROVISION',
+    desc: 'Vérifie en temps réel que les fonds et plafonds nécessaires à l’opération sont réunis avant tout engagement.',
     endpoint: 'POST /v1/funding/verify',
   },
   {
     title: 'Business rules',
-    tag: 'LOGIQUE MÉTIER',
-    desc: 'Applique vos règles métier personnalisées, commissions de place de marché, conditions de déblocage et politiques spécifiques.',
+    tag: 'RÈGLES MÉTIER',
+    desc: 'Applique vos conditions de validation, commissions de plateforme et politiques de règlement personnalisées.',
     endpoint: 'POST /v1/rules/evaluate',
   },
   {
-    title: 'Ledger immuable',
+    title: 'Journal d’opérations',
     tag: 'REGISTRE',
-    desc: 'Journalise chaque mouvement avec une traçabilité cryptographique complète et un état financier en temps réel.',
+    desc: 'Enregistre de manière transparente chaque étape et mouvement pour un suivi et un audit clairs.',
     endpoint: 'GET /v1/ledger/accounts/{id}',
   },
   {
-    title: 'Escrow Reservation',
+    title: 'Escrow hold',
     tag: 'SÉQUESTRE',
-    desc: 'Immobilise et protège les montants engagés dans un coffre-fort logique tant que la livraison n’est pas certifiée conforme.',
+    desc: 'Retient et protège les montants engagés tant que la livraison n’est pas confirmée.',
     endpoint: 'POST /v1/escrow/hold',
   },
   {
     title: 'Settlement auto',
     tag: 'RÈGLEMENT',
-    desc: 'Orchestre la libération et le transfert effectif des fonds vers les comptes marchands une fois les conditions remplies.',
+    desc: 'Déclenche la libération et le transfert effectif des fonds vers le vendeur une fois les conditions remplies.',
     endpoint: 'POST /v1/settlement/release',
   },
   {
     title: 'Reconciliation',
-    tag: 'AUDIT AUTOMATISÉ',
-    desc: 'Rapproche automatiquement les opérations internes avec les flux bancaires CIB, Edahabia et relevés transporteurs.',
+    tag: 'RAPPROCHEMENT',
+    desc: 'Rapproche les écritures transactionnelles avec les flux de paiement et les statuts des transporteurs.',
     endpoint: 'POST /v1/reconcile/run',
   },
   {
-    title: 'Exception management',
-    tag: 'LITIGES & RETOURS',
-    desc: 'Gère les anomalies, retours colis, suspensions et résolutions de litiges avec workflows d’arbitrage configurables.',
+    title: 'Gestion des anomalies',
+    tag: 'LITIGES',
+    desc: 'Gère les exceptions, retours de colis et suspensions de transaction selon des workflows configurables.',
     endpoint: 'POST /v1/disputes/escalate',
   },
   {
     title: 'Webhooks & Events',
-    tag: 'TEMPS RÉEL',
-    desc: 'Diffuse des événements signés (HMAC SHA-256) à vos serveurs à chaque changement d’état transactionnel ou de livraison.',
+    tag: 'ÉVÉNEMENTS',
+    desc: 'Transmet des notifications d’événements en temps réel à vos serveurs à chaque changement d’état.',
     endpoint: 'EVENT transaction.escrow.locked',
   },
 ]
@@ -297,71 +309,76 @@ const faqs = [
   {
     id: 1,
     category: 'escrow',
-    tag: 'ÉCOSYSTÈME',
-    q: 'Qu’est-ce que Dinari et à quel besoin répond-il ?',
-    a: 'Dinari est la première plateforme d’orchestration de confiance et de séquestre digital conçue pour le commerce en Algérie. Elle résout la défiance entre acheteurs, vendeurs et livreurs en sanctuarisant les montants sur des comptes dédiés jusqu’à la confirmation de conformité à la livraison.',
-    badges: ['Séquestre 100% garanti', 'Élimination des arnaques', 'Conçu à Alger'],
+    tag: 'SÉQUESTRE',
+    q: 'Qu’est-ce que Dinari ?',
+    a: 'Dinari est une plateforme de confiance et de sécurisation des transactions pour le commerce digital en Algérie. Elle permet aux acheteurs de payer sans risque et aux vendeurs d’expédier avec la certitude que leur transaction est garantie par un mécanisme de séquestre.',
+    badges: ['Protection acheteur', 'Protection vendeur', 'Commerce digital'],
   },
   {
     id: 2,
     category: 'escrow',
     tag: 'FONCTIONNEMENT',
-    q: 'Comment fonctionne concrètement une transaction sécurisée ?',
-    a: 'Dès l’accord entre les deux parties, les fonds sont consignés via CIB ou Edahabia. Le vendeur expédie le colis en toute sérénité. À l’arrivée, l’acheteur inspecte son colis avant de transmettre son code secret OTP ou QR au livreur, ce qui débloque instantanément le virement vers le compte marchand.',
-    badges: ['Débit CIB / Edahabia', 'Inspection avant paiement', 'Code OTP secret'],
+    q: 'Comment fonctionne une transaction sous séquestre ?',
+    a: 'L’acheteur paie la commande, mais les fonds ne sont pas transmis immédiatement au vendeur : ils sont conservés sous séquestre. Le vendeur prépare et expédie le colis. À la réception, l’acheteur vérifie la marchandise et valide la transaction, ce qui déclenche le déblocage des fonds vers le vendeur.',
+    badges: ['Paiement sécurisé', 'Expédition garantie', 'Validation à réception'],
   },
   {
     id: 3,
-    category: 'engine',
-    tag: 'INFRASTRUCTURE',
-    q: 'Qu’est-ce que Dinari Engine et à qui s’adresse-t-il ?',
-    a: 'Dinari Engine est une couche logicielle d’orchestration financière accessible via API REST et webhooks. Elle permet aux marketplaces e-commerce, plateformes de services et entreprises de brancher des règles de séquestre automatique, de split de paiements et de réconciliation bancaire en quelques lignes de code.',
-    badges: ['API REST & Webhooks HMAC', 'SDKs Node, Python, PHP', 'Idempotence native'],
+    category: 'escrow',
+    tag: 'PROTECTION',
+    q: 'Pourquoi est-ce plus sûr que le paiement à la livraison (COD) ou le paiement direct ?',
+    a: 'Le paiement direct expose l’acheteur si le vendeur n’envoie pas le bon produit. Le paiement à la livraison (COD) expose le vendeur aux refus arbitraires et aux coûts de retours non justifiés. Dinari protège les deux côtés : l’argent est réservé d’avance, et débloqué uniquement après vérification.',
+    badges: ['Zéro risque de non-paiement', 'Zéro avance à l’aveugle', 'Équilibre des parties'],
   },
   {
     id: 4,
-    category: 'engine',
-    tag: 'RÉGULATION & BANQUE',
-    q: 'Dinari Engine est-il une banque ou un établissement financier ?',
-    a: 'Non. Dinari n’est ni une banque ni un établissement de crédit. Dinari Engine agit comme une couche d’orchestration logique et technologique connectée aux réseaux bancaires nationaux (SATIM, GIE Monétique). Les fonds séquestrés sont cantonnés sur des comptes dédiés auprès de nos banques partenaires agréées.',
-    badges: ['Fonds cantonnés hors bilan', 'Banques partenaires agréées', 'Conforme SATIM'],
+    category: 'escrow',
+    tag: 'LITIGES & ANOMALIES',
+    q: 'Que se passe-t-il si le produit reçu n’est pas conforme ?',
+    a: 'Si le produit reçu est défectueux ou ne correspond pas à la commande, l’acheteur signale une anomalie. Les fonds restent sécurisés sous séquestre et ne sont pas transférés au vendeur tant que le désaccord n’est pas examiné et résolu par notre processus de médiation.',
+    badges: ['Fonds protégés', 'Procédure équitable', 'Assistance dédiée'],
   },
   {
     id: 5,
     category: 'engine',
-    tag: 'ARCHITECTURE',
-    q: 'Dinari remplace-t-il une passerelle de paiement (Payment Gateway) ?',
-    a: 'Non. Dinari ne remplace pas votre agrégateur de paiement ou TPE virtuel existant. Engine s’intègre par-dessus les passerelles pour y ajouter la logique de séquestre conditionnel, le ledger en partie double immuable et la synchronisation avec les transporteurs.',
-    badges: ['Complémentaire aux gateways', 'Ledger immuable', 'Logique métier avancée'],
+    tag: 'INFRASTRUCTURE B2B',
+    q: 'Quelle est la différence entre Dinari App et Dinari Engine ?',
+    a: 'Dinari App est l’application mobile grand public et commerçants pour gérer son wallet, régler ses achats et suivre ses commandes. Dinari Engine est l’infrastructure technique (API & Webhooks) permettant aux marketplaces, sites e-commerce et entreprises d’intégrer ce mécanisme de séquestre directement dans leurs propres systèmes.',
+    badges: ['App pour utilisateurs', 'Engine pour plateformes', 'Architecture distincte'],
   },
   {
     id: 6,
-    category: 'escrow',
-    tag: 'APPLICATION MOBILE',
-    q: 'Puis-je télécharger et utiliser l’application Android dès aujourd’hui ?',
-    a: 'Oui, l’application Android Dinari (v1.0.5 Beta) est disponible en téléchargement direct APK officiel sur notre site. Elle vous permet de suivre vos commandes, de recharger votre portefeuille en dinars et de générer vos codes de validation sécurisés.',
-    badges: ['Installation APK directe', 'Compatible Android 8.0+', 'Sécurité certifiée'],
+    category: 'engine',
+    tag: 'INTÉGRATION',
+    q: 'Dinari Engine remplace-t-il les solutions de paiement existantes ?',
+    a: 'Non. Dinari Engine ne remplace pas les moyens de paiement existants : il ajoute une couche de confiance et d’arbitrage conditionnel par-dessus vos flux pour gérer la réservation, la validation et le règlement final.',
+    badges: ['Couche complémentaire', 'Logique conditionnelle', 'API programmable'],
   },
   {
     id: 7,
     category: 'escrow',
-    tag: 'LITIGES & RETOURS',
-    q: 'Que se passe-t-il en cas de colis endommagé ou de non-conformité ?',
-    a: 'Si le produit reçu ne correspond pas à la commande, l’acheteur refuse la remise du code OTP. Les fonds restent bloqués en séquestre neutre. Un litige est ouvert en un clic, et notre équipe de médiation locale intervient sous 24 à 48h pour organiser le retour ou le remboursement intégral.',
-    badges: ['Fonds protégés', 'Médiation sous 24-48h', 'Remboursement garanti'],
+    tag: 'APPLICATION MOBILE',
+    q: 'Comment utiliser l’application Dinari ?',
+    a: 'L’application Dinari permet de créer un compte, de gérer son portefeuille en dinars (DZD), d’initier des transactions protégées, de suivre ses colis et de confirmer la réception en quelques clics.',
+    badges: ['Application Android', 'Suivi en direct', 'Gestion en dinars'],
   },
   {
     id: 8,
     category: 'engine',
-    tag: 'INTÉGRATION B2B',
-    q: 'Comment les développeurs et entreprises peuvent-ils tester l’API ?',
-    a: 'Un environnement Sandbox complet en dinars algériens (DZD) est accessible immédiatement. Vous pouvez générer vos clés de test, émettre des intentions de séquestre simulées et écouter les événements webhooks en temps réel avant tout passage en production.',
-    badges: ['Sandbox DZD instantanée', 'Spécifications OpenAPI', 'Support technique dédié'],
+    tag: 'DEVELOPPEURS',
+    q: 'Comment une entreprise ou une marketplace peut-elle démarrer avec l’API ?',
+    a: 'Les équipes techniques peuvent consulter la documentation de Dinari Engine, explorer les spécifications d’API et tester les flux de séquestre et webhooks dans notre environnement de démonstration avant tout déploiement.',
+    badges: ['Documentation complète', 'Environnement test', 'Intégration API'],
   },
 ]
 
 function Brand({ dark = false }: { dark?: boolean }) {
-  return <a href="#top" className={`brand ${dark ? 'brand-dark' : ''}`} aria-label="Dinari, accueil"><img src="/images/dinari-logo.png" alt="" className="brand-mark-image" /><span>Dinari</span></a>
+  return (
+    <a href="#top" className={`brand ${dark ? 'brand-dark' : ''}`} aria-label="Dinari, accueil">
+      <img src="/images/dinari-logo.png" alt="" className="brand-mark-image" />
+      <span>Dinari</span>
+    </a>
+  )
 }
 
 function PhoneMockup({ className = '' }: { className?: string }) {
@@ -391,56 +408,56 @@ const trustFeatures = [
   {
     num: '01',
     icon: Activity,
-    tag: 'REGISTRE DISTRIBUÉ',
-    title: 'Traçabilité immuable',
-    desc: 'Chaque centime engagé et chaque changement d’état est horodaté et inscrit dans un registre cryptographique infalsifiable.',
-    meta: 'SHA-256 · Journal d’audit inviolable',
-    metric: '100% traçable',
+    tag: 'TRAÇABILITÉ',
+    title: 'Traçabilité des opérations',
+    desc: 'Chaque étape et changement d’état d’une transaction sont documentés et consultables en direct.',
+    meta: 'Historique clair & transparent',
+    metric: 'Horodatage complet',
   },
   {
     num: '02',
     icon: ShieldCheck,
-    tag: 'SÛRETÉ DES FONDS',
-    title: 'Contrôles multicouches',
-    desc: 'Vérifications systématiques anti-fraude, validation d’identité (KYC) et cantonnement des fonds sur comptes séquestres bancaires.',
-    meta: 'Anti-fraude SATIM & GIE Monétique',
-    metric: 'Triple contrôle',
+    tag: 'SÉCURITÉ',
+    title: 'Contrôles d’accès & d’identité',
+    desc: 'Des mécanismes d’authentification rigoureux pour garantir que seuls les utilisateurs autorisés valident les opérations.',
+    meta: 'Authentification vérifiée',
+    metric: 'Accès sécurisés',
   },
   {
     num: '03',
-    icon: CheckCircle2,
-    tag: 'CYCLE DE VIE DU PAIEMENT',
-    title: 'États transactionnels lisibles',
-    desc: 'Fini l’opacité du cash ou des virements perdus. L’acheteur, le vendeur et le transporteur partagent le même statut en direct.',
-    meta: 'Initié → Séquestré → Livré → Débloqué',
-    metric: 'Temps réel',
+    icon: Lock,
+    tag: 'CONFIDENTIALITÉ',
+    title: 'Protection des données',
+    desc: 'Vos informations personnelles et transactionnelles sont protégées conformément aux bonnes pratiques du secteur.',
+    meta: 'Données chiffrées & isolées',
+    metric: 'Normes de protection',
   },
   {
     num: '04',
     icon: Repeat,
-    tag: 'INTÉGRITÉ LOGICIELLE',
-    title: 'Idempotence absolue',
-    desc: 'Même en cas de perte de connexion réseau mobile ou de double clic, une opération ne peut jamais être débitée deux fois.',
-    meta: 'Clé UUID unique · Tolérance aux pannes',
-    metric: 'Zéro doublon',
+    tag: 'FIABILITÉ',
+    title: 'Idempotence des opérations',
+    desc: 'Un ordre de paiement ne peut pas être exécuté deux fois par erreur, même en cas de coupure réseau mobile.',
+    meta: 'Clé unique anti-doublon',
+    metric: 'Exécution unique',
   },
   {
     num: '05',
-    icon: BadgeCheck,
-    tag: 'PREUVE PHYSIQUE & DIGITALE',
-    title: 'Vérification bipartite',
-    desc: 'Les fonds ne sont libérés qu’après double confirmation : scan physique du transporteur et validation du code secret par l’acheteur.',
-    meta: 'Scan QR + Code OTP de remise',
-    metric: 'Double validation',
+    icon: CheckCircle2,
+    tag: 'TRANSPARENCE',
+    title: 'Journalisation et audit',
+    desc: 'Toutes les actions clés génèrent des enregistrements d’audit clairs pour permettre un suivi précis et incontestable.',
+    meta: 'Historique d’audit structuré',
+    metric: 'Audit continu',
   },
   {
     num: '06',
     icon: Scale,
-    tag: 'PROTECTION & ARBITRAGE',
-    title: 'Gestion des exceptions & litiges',
-    desc: 'Colis endommagé ou non conforme ? Les fonds restent bloqués en séquestre neutre et notre équipe d’arbitrage intervient sous 24h.',
-    meta: 'Médiation équitable · Remboursement garanti',
-    metric: 'Protection 24/7',
+    tag: 'ÉQUITÉ',
+    title: 'Gestion des exceptions',
+    desc: 'Des procédures encadrées pour traiter les retards, non-conformités et contestations de manière juste et équilibrée.',
+    meta: 'Médiation & résolution équitable',
+    metric: 'Support d’arbitrage',
   },
 ]
 
@@ -528,124 +545,142 @@ const cycleSteps = [
     num: '01',
     phase: 'ÉTAPE 01',
     stepName: 'INITIER',
-    title: 'Initier & sceller l’accord',
-    tag: 'ACCORD COMMERCIAL & DEVIS',
+    title: 'Initier la commande',
+    tag: 'ACCORD COMMERCIAL',
     icon: FileText,
-    desc: 'L’acheteur et le vendeur s’accordent sur le montant, le mode d’expédition et les conditions de contrôle. Dinari génère un bon d’opération horodaté et inviolable.',
-    protocol: 'Contrat logique & clé d’intention',
+    desc: 'L’acheteur et le vendeur conviennent du produit, du montant et des conditions de livraison. Dinari génère un récapitulatif clair de la commande.',
+    protocol: 'Accord bilatéral & modalités fixées',
     actors: 'Acheteur ↔ Vendeur',
-    guarantee: 'Montant gelé, conditions d’arbitrage fixées',
-    codeEvent: 'transaction.intent_created',
-    executionStatus: 'Prêt pour cantonnement bancaire',
+    guarantee: 'Conditions claires et prévisibles',
+    codeEvent: 'order.created',
+    executionStatus: 'Commande enregistrée',
     specs: [
-      { label: 'Protocole', val: 'Contrat logique signé' },
+      { label: 'Protocole', val: 'Accord de commande' },
       { label: 'Acteurs', val: 'Acheteur ↔ Vendeur' },
-      { label: 'Garantie', val: 'Conditions d’arbitrage fixées' },
+      { label: 'Garantie', val: 'Conditions prévisibles' },
     ],
     jsonPayload: `{
-  "event": "transaction.intent_created",
-  "tx_id": "TX-DZ-2026-8891",
-  "phase": "01_INTENTION",
+  "event": "order.created",
+  "order_id": "ORD-DZ-2026-8891",
+  "phase": "01_COMMANDE",
   "parties": {
-    "buyer": "usr_alg_9410 (KYC vérifié)",
-    "seller": "mkt_dz_0028 (Marchand certifié)"
+    "buyer": "usr_dz_9410",
+    "seller": "mkt_dz_0028"
   },
   "terms": {
     "amount": 25000,
     "currency": "DZD",
-    "inspection_window": "48 heures",
-    "dispute_arbiter": "dinari_mediation_algiers"
-  },
-  "hash": "sha256:7f9a2b8e4c190..."
+    "inspection_window": "48h après livraison"
+  }
 }`,
   },
   {
     num: '02',
     phase: 'ÉTAPE 02',
-    stepName: 'CONTRÔLER',
-    title: 'Cantonner & sécuriser les fonds',
+    stepName: 'SÉCURISER',
+    title: 'Séquestrer les fonds',
     tag: 'SÉQUESTRE SÉCURISÉ',
     icon: Lock,
-    desc: 'Le montant est débité via CIB ou Edahabia et sanctuarisé sur un compte séquestre dédié. Le vendeur prépare le colis avec la certitude d’être payé.',
-    protocol: 'Cantonnement SATIM & Coffre logique',
-    actors: 'Dinari Engine ↔ Réseau CIB',
-    guarantee: '100% protégé contre le non-paiement',
-    codeEvent: 'escrow.funds_held_locked',
-    executionStatus: 'Fonds sanctuarisés sous séquestre',
+    desc: 'Le montant est provisionné et conservé sous séquestre. Le vendeur a la certitude que les fonds sont réservés avant de procéder à l’expédition.',
+    protocol: 'Séquestre conditionnel Dinari',
+    actors: 'Dinari ↔ Acheteur',
+    guarantee: 'Paiement garanti et isolé',
+    codeEvent: 'escrow.funds_held',
+    executionStatus: 'Fonds protégés sous séquestre',
     specs: [
-      { label: 'Protocole', val: 'Cantonnement SATIM' },
-      { label: 'Acteurs', val: 'Dinari Engine ↔ Banque' },
-      { label: 'Garantie', val: 'Protection intégrale du paiement' },
+      { label: 'Protocole', val: 'Séquestre Dinari' },
+      { label: 'Acteurs', val: 'Dinari ↔ Acheteur' },
+      { label: 'Garantie', val: 'Paiement réservé' },
     ],
     jsonPayload: `{
-  "event": "escrow.funds_held_locked",
-  "tx_id": "TX-DZ-2026-8891",
-  "phase": "02_ESCROW_HOLD",
-  "vault": "SATIM_DEDICATED_ESCROW_ACC",
-  "amount_locked": 25000,
+  "event": "escrow.funds_held",
+  "order_id": "ORD-DZ-2026-8891",
+  "phase": "02_SEQUESTRE",
+  "amount_held": 25000,
   "currency": "DZD",
-  "idempotency_key": "e7b1a204-58f2-4bc2",
-  "buyer_protection": "ACTIVE_UNTIL_DELIVERY",
-  "hash": "sha256:3d1e90b2f8a55..."
+  "status": "held_in_escrow",
+  "buyer_protection": "active"
 }`,
   },
   {
     num: '03',
     phase: 'ÉTAPE 03',
-    stepName: 'ORCHESTRER',
-    title: 'Coordonner flux & inspection',
-    tag: 'EXPÉDITION & CONTRÔLE',
+    stepName: 'LIVRER',
+    title: 'Expédier avec suivi',
+    tag: 'ACHEMINEMENT TRANSPARENT',
     icon: Truck,
-    desc: 'Le transporteur achemine le colis sous supervision d’événements webhooks signés. L’acheteur inspecte son produit avant de communiquer son code OTP.',
-    protocol: 'Webhooks transporteur & Code OTP',
-    actors: 'Transporteur (Yalidine) ↔ Acheteur',
-    guarantee: 'Inspection physique avant tout déblocage',
-    codeEvent: 'logistics.delivery_handover',
-    executionStatus: 'En cours d’acheminement & inspection',
+    desc: 'Le transporteur achemine le colis avec suivi synchronisé. Les deux parties peuvent consulter la progression de la livraison en temps réel.',
+    protocol: 'Suivi logistique synchronisé',
+    actors: 'Transporteur ↔ Destinataire',
+    guarantee: 'Traçabilité de livraison',
+    codeEvent: 'shipment.in_transit',
+    executionStatus: 'En cours d’acheminement',
     specs: [
-      { label: 'Protocole', val: 'Tracking API & Code OTP' },
-      { label: 'Acteurs', val: 'Transporteur ↔ Acheteur' },
-      { label: 'Garantie', val: 'Droit de contrôle à la livraison' },
+      { label: 'Protocole', val: 'Suivi colis' },
+      { label: 'Acteurs', val: 'Transporteur ↔ Destinataire' },
+      { label: 'Garantie', val: 'Traçabilité temps réel' },
     ],
     jsonPayload: `{
-  "event": "logistics.delivery_handover",
-  "tx_id": "TX-DZ-2026-8891",
-  "phase": "03_LOGISTICS_INSPECTION",
-  "carrier": "YALIDINE_EXPRESS_DZ",
-  "tracking_num": "YAL-781920-DZ",
-  "status": "OUT_FOR_DELIVERY",
-  "verification_method": "SECRET_OTP_SMS_QR",
-  "hash": "sha256:1a8c44f772e04..."
+  "event": "shipment.in_transit",
+  "order_id": "ORD-DZ-2026-8891",
+  "phase": "03_EXPEDITION",
+  "carrier": "service_livraison",
+  "tracking_code": "DZ-781920-TR",
+  "status": "out_for_delivery"
 }`,
   },
   {
     num: '04',
     phase: 'ÉTAPE 04',
-    stepName: 'FINALISER',
-    title: 'Libérer & archiver au grand livre',
-    tag: 'CLÔTURE & RÈGLEMENT IMMUABLE',
-    icon: BadgeCheck,
-    desc: 'Dès validation bilatérale (scan OTP), le séquestre est levé et les fonds sont versés instantanément au vendeur. L’opération est scellée dans le grand livre.',
-    protocol: 'Virement instantané DZD & Grand livre',
-    actors: 'Banque partenaire ↔ Marchand',
-    guarantee: 'Paiement irrévocable & reçu légal',
-    codeEvent: 'settlement.funds_released_closed',
-    executionStatus: 'Transaction clôturée avec succès',
+    stepName: 'VALIDER',
+    title: 'Inspecter & confirmer',
+    tag: 'RÉCEPTION & CONTRÔLE',
+    icon: CheckCircle2,
+    desc: 'L’acheteur reçoit le colis, examine la conformité du produit par rapport à la commande et confirme la réception pour autoriser le déblocage.',
+    protocol: 'Confirmation de réception acheteur',
+    actors: 'Acheteur ↔ Dinari',
+    guarantee: 'Droit d’inspection respecté',
+    codeEvent: 'order.buyer_confirmed',
+    executionStatus: 'Réception validée avec succès',
     specs: [
-      { label: 'Protocole', val: 'Virement instantané DZD' },
-      { label: 'Acteurs', val: 'Banque ↔ Vendeur' },
-      { label: 'Garantie', val: 'Règlement irrévocable & reçu' },
+      { label: 'Protocole', val: 'Validation réception' },
+      { label: 'Acteurs', val: 'Acheteur ↔ Dinari' },
+      { label: 'Garantie', val: 'Inspection conforme' },
     ],
     jsonPayload: `{
-  "event": "settlement.funds_released_closed",
-  "tx_id": "TX-DZ-2026-8891",
-  "phase": "04_SETTLED_FINAL",
-  "seller_payout": 24250,
+  "event": "order.buyer_confirmed",
+  "order_id": "ORD-DZ-2026-8891",
+  "phase": "04_VALIDATION",
+  "buyer_confirmation": "conforme",
+  "release_authorized": true
+}`,
+  },
+  {
+    num: '05',
+    phase: 'ÉTAPE 05',
+    stepName: 'RÉGLER',
+    title: 'Débloquer & clôturer',
+    tag: 'RÈGLEMENT MARCHAND',
+    icon: BadgeCheck,
+    desc: 'Dès validation de la réception, le séquestre est levé et les fonds sont immédiatement transférés vers le solde disponible du vendeur.',
+    protocol: 'Règlement immédiat & reçu officiel',
+    actors: 'Dinari ↔ Vendeur',
+    guarantee: 'Règlement irrévocable',
+    codeEvent: 'settlement.completed',
+    executionStatus: 'Transaction clôturée avec succès',
+    specs: [
+      { label: 'Protocole', val: 'Règlement' },
+      { label: 'Acteurs', val: 'Dinari ↔ Vendeur' },
+      { label: 'Garantie', val: 'Paiement débloqué' },
+    ],
+    jsonPayload: `{
+  "event": "settlement.completed",
+  "order_id": "ORD-DZ-2026-8891",
+  "phase": "05_REGLEMENT",
+  "seller_payout": 25000,
   "currency": "DZD",
-  "platform_fee": 750,
-  "payout_receipt": "VIR-SATIM-88219-DZ",
-  "ledger_entry": "IMMUTABLE_BLOCK_#94821",
-  "hash": "sha256:9c0d54e311bf2..."
+  "status": "settled",
+  "receipt_issued": true
 }`,
   },
 ]
@@ -706,21 +741,21 @@ export default function Page() {
       <div className="container hero-content">
         <div className="hero-copy">
           <div className="kicker">
-            <span /> WALLET DIGITAL &amp; SÉQUESTRE
+            <span /> WALLET DIGITAL &amp; TRANSACTION PROTECTION
           </div>
           <h1>
-            Plus qu’un portefeuille.<br />
-            <em>Un écosystème de confiance.</em>
+            Le commerce en ligne,<br />
+            <em>sans le risque de confiance.</em>
           </h1>
           <p className="hero-lead-text">
-            Paiements <strong>CIB / Edahabia</strong>, transferts <strong>P2P instantanés</strong> et <strong>séquestre garanti</strong> pour sécuriser tout votre commerce en ligne.
+            Dinari sécurise les transactions entre acheteurs et vendeurs grâce à un mécanisme de séquestre et de validation à la livraison. Achetez avec confiance. Vendez avec la certitude que votre transaction est sécurisée.
           </p>
           <div className="hero-buttons">
-            <a className="button button-gold" href="#produit">
-              Découvrir l’écosystème <ArrowRight />
+            <a className="button button-gold" href="#fonctionnement">
+              Découvrir Dinari <ArrowRight />
             </a>
             <a className="text-link" href="#download">
-              Télécharger l’APK <ArrowUpRight />
+              Télécharger l’application <ArrowUpRight />
             </a>
           </div>
         </div>
@@ -729,11 +764,11 @@ export default function Page() {
           <div className="visual-label label-top">
             <div className="visual-label-head">
               <span className="pulse" />
-              <span>WALLET DIGITAL</span>
+              <span>TRANSACTIONS SÉCURISÉES</span>
             </div>
             <div className="visual-label-body">
-              <strong>100%</strong>
-              <small>CONFORME</small>
+              <strong>SÉQUESTRE</strong>
+              <small>ACTIF</small>
             </div>
             <div className="visual-label-sub">
               <ShieldCheck className="w-3 h-3 visual-sub-icon" />
@@ -749,7 +784,7 @@ export default function Page() {
             </div>
             <div className="chip-content">
               <strong>Transfert P2P instantané</strong>
-              <small>CIB · Edahabia · Zéro frais</small>
+              <small>Sécurisé · Reçu numérique</small>
             </div>
           </div>
 
@@ -766,7 +801,7 @@ export default function Page() {
             </div>
             <div className="chip-escrow-pill">
               <Lock className="w-3 h-3 chip-gold-icon" />
-              <span>Garanti sous séquestre</span>
+              <span>Transaction sous séquestre</span>
             </div>
           </div>
 
@@ -776,117 +811,145 @@ export default function Page() {
       </div>
     </section>
 
+    {/* Section Problème / Confiance */}
     <section className="section intro" id="produit">
       <div className="container">
-        <div className="section-head split">
-          <div>
-            <div className="kicker dark"><span /> L’EXPÉRIENCE DINARI</div>
-            <h2>La confiance,<br /><span>à chaque étape.</span></h2>
-          </div>
-          <p>Dinari est une plateforme de confiance pour faciliter les transactions entre acheteurs et vendeurs dans le commerce digital. Une expérience simple en surface, conçue avec sérieux sous le capot.</p>
+        <div className="section-head centered">
+          <div className="kicker dark"><span /> LE PROBLÈME DE CONFIANCE</div>
+          <h2>Acheter en ligne<br /><span>ne devrait pas être un pari.</span></h2>
+          <p>Dans le commerce digital, l’acheteur craint de ne pas recevoir le bon produit, et le vendeur craint de ne pas être payé. Dinari élimine cette incertitude.</p>
         </div>
 
-        <div className="flow-container">
-          <div className="flow-track">
-            <div
-              className="flow-track-fill"
-              style={{ width: `${((activeFlowStep + 1) / flowSteps.length) * 100}%` }}
-            />
+        {/* 2 Problem Cards + Dinari Trust Solution */}
+        <div className="feature-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)', marginBottom: '32px' }}>
+          <div className="feature-card">
+            <div className="feature-card-header">
+              <div className="feature-icon-box">
+                <ShoppingBag />
+              </div>
+              <span className="feature-tag">Côté Acheteur</span>
+            </div>
+            <div className="feature-card-body">
+              <h3 style={{ fontSize: '19px', marginBottom: '12px' }}>« Et si le produit ne correspond pas ? »</h3>
+              <ul style={{ paddingLeft: '18px', margin: 0, color: 'var(--muted)', fontSize: '13.5px', lineHeight: 1.8 }}>
+                {problemPointsBuyer.map((pt, idx) => (
+                  <li key={idx}>{pt}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="feature-card-footer">
+              <span className="feature-pill">
+                <ShieldCheck className="feature-pill-icon" />
+                <span>Paiement bloqué jusqu’à validation</span>
+              </span>
+            </div>
           </div>
 
-          <div className="flow-grid">
-            {flowSteps.map((stepItem, i) => {
-              const StepIcon = stepItem.Icon
-              const isActive = activeFlowStep === i
-              return (
-                <div
-                  key={stepItem.num}
-                  className={`flow-card ${isActive ? 'is-active' : ''} ${stepItem.highlight ? 'is-highlight' : ''}`}
-                  onClick={() => setActiveFlowStep(i)}
-                  onMouseEnter={() => setActiveFlowStep(i)}
-                >
-                  <div className="flow-card-head">
-                    <span className="flow-step-num">{stepItem.num}</span>
-                    <span className="flow-step-tag">{stepItem.tag}</span>
-                  </div>
-                  <div className="flow-icon-wrap">
-                    <StepIcon />
-                  </div>
-                  <h3>{stepItem.title}</h3>
-                  <p>{stepItem.desc}</p>
-                  <span className="flow-micro-badge">
-                    <Check /> {stepItem.badge}
-                  </span>
-                </div>
-              )
-            })}
+          <div className="feature-card">
+            <div className="feature-card-header">
+              <div className="feature-icon-box accent-gold">
+                <Truck />
+              </div>
+              <span className="feature-tag" style={{ color: '#8c6e00', background: 'rgba(252, 203, 26, 0.15)' }}>Côté Vendeur</span>
+            </div>
+            <div className="feature-card-body">
+              <h3 style={{ fontSize: '19px', marginBottom: '12px' }}>« Et si j’expédie sans certitude d’être payé ? »</h3>
+              <ul style={{ paddingLeft: '18px', margin: 0, color: 'var(--muted)', fontSize: '13.5px', lineHeight: 1.8 }}>
+                {problemPointsSeller.map((pt, idx) => (
+                  <li key={idx}>{pt}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="feature-card-footer">
+              <span className="feature-pill" style={{ color: '#8c6e00', borderColor: 'rgba(252, 203, 26, 0.3)' }}>
+                <CheckCircle2 className="feature-pill-icon" style={{ color: '#b38600' }} />
+                <span>Fonds garantis avant envoi</span>
+              </span>
+            </div>
           </div>
+        </div>
 
-          <div className="flow-trust-strip">
-            <div className="flow-trust-item">
-              <ShieldCheck />
-              <div>
-                <strong>Protection bilatérale</strong>
-                <span>Acheteur protégé contre la non-conformité, vendeur garanti d’être payé dès livraison.</span>
-              </div>
-            </div>
-            <div className="flow-trust-item">
-              <Lock />
-              <div>
-                <strong>Séquestre Dinari automatique</strong>
-                <span>Les fonds restent bloqués en toute sécurité jusqu’à confirmation mutuelle.</span>
-              </div>
-            </div>
-            <div className="flow-trust-item">
-              <CircleCheck />
-              <div>
-                <strong>Traçabilité temps réel</strong>
-                <span>Chaque étape est documentée et synchronisée avec le transporteur (Yalidine Express).</span>
-              </div>
+        {/* Dinari Trust Banner */}
+        <div className="flow-trust-strip" style={{ marginTop: '0', background: 'linear-gradient(135deg, #f0f7f6 0%, #fff 100%)', border: '1px solid rgba(0, 128, 128, 0.2)' }}>
+          <div className="flow-trust-item" style={{ gridColumn: '1 / -1' }}>
+            <ShieldCheck style={{ width: '28px', height: '28px' }} />
+            <div>
+              <strong style={{ fontSize: '15px' }}>La couche de confiance Dinari</strong>
+              <span style={{ fontSize: '13px', color: 'var(--ink)' }}>
+                Dinari ajoute une couche de confiance entre l’acheteur et le vendeur. La transaction suit des conditions définies à l’avance avant que les fonds soient libérés.
+              </span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
+    {/* Section Protection des deux côtés */}
     <section className="section feature-section" id="avantages">
       <div className="feature-bg-ambient" aria-hidden="true" />
       <div className="container">
         <div className="section-head centered">
-          <div className="kicker dark"><span /> UNE EXPÉRIENCE CLAIRE</div>
-          <h2>Tout ce qu’il faut.<br /><span>Rien de superflu.</span></h2>
-          <p>Des outils pensés pour donner de la visibilité à chaque opération, éliminer les incertitudes et garder le contrôle total de vos transactions.</p>
+          <div className="kicker dark"><span /> ÉQUILIBRE &amp; SÉCURITÉ</div>
+          <h2>Une transaction.<br /><span>Deux parties protégées.</span></h2>
+          <p>Dinari protège simultanément l’acheteur et le vendeur avec des règles équitables et transparentes.</p>
         </div>
 
-        <div className="feature-grid">
-          {featureItems.map((item) => {
-            const IconComponent = item.icon
-            return (
-              <div className="feature-card" key={item.title}>
-                <div className="feature-card-header">
-                  <div className={`feature-icon-box ${item.accent === 'gold' ? 'accent-gold' : ''}`}>
-                    <IconComponent />
-                  </div>
-                  <span className="feature-tag">{item.tag}</span>
-                  <div className="feature-arrow-btn" aria-hidden="true">
-                    <ArrowUpRight />
-                  </div>
-                </div>
-
-                <div className="feature-card-body">
-                  <h3>{item.title}</h3>
-                  <p>{item.desc}</p>
-                </div>
-
-                <div className="feature-card-footer">
-                  <span className="feature-pill">
-                    <CheckCircle2 className="feature-pill-icon" />
-                    <span>{item.badge}</span>
-                  </span>
-                </div>
+        <div className="feature-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: '26px' }}>
+          {/* Card 1: Protection Acheteur */}
+          <div className="feature-card" style={{ padding: '34px 30px' }}>
+            <div className="feature-card-header">
+              <div className="feature-icon-box">
+                <ShieldCheck />
               </div>
-            )
-          })}
+              <span className="feature-tag">POUR L’ACHETEUR</span>
+            </div>
+            <div className="feature-card-body">
+              <h3 style={{ fontSize: '20px', marginBottom: '14px' }}>Protection acheteur</h3>
+              <p style={{ marginBottom: '16px', fontSize: '14px' }}>
+                Achetez en ligne sans crainte des mauvaises surprises ou des livraisons non conformes.
+              </p>
+              <ul style={{ paddingLeft: '18px', margin: 0, color: 'var(--muted)', fontSize: '13.5px', lineHeight: 2 }}>
+                <li><strong>Vérification des conditions :</strong> prix et termes validés avant tout débit.</li>
+                <li><strong>Fonds protégés :</strong> le montant reste sous séquestre jusqu’à la livraison.</li>
+                <li><strong>Validation à la réception :</strong> vous confirmez la bonne réception de votre commande.</li>
+                <li><strong>Gestion des anomalies :</strong> assistance dédiée en cas de colis endommagé ou non conforme.</li>
+              </ul>
+            </div>
+            <div className="feature-card-footer" style={{ marginTop: '20px' }}>
+              <span className="feature-pill">
+                <CheckCircle2 className="feature-pill-icon" />
+                <span>Validation nécessaire avant déblocage</span>
+              </span>
+            </div>
+          </div>
+
+          {/* Card 2: Protection Vendeur */}
+          <div className="feature-card" style={{ padding: '34px 30px' }}>
+            <div className="feature-card-header">
+              <div className="feature-icon-box accent-gold">
+                <Lock />
+              </div>
+              <span className="feature-tag" style={{ color: '#8c6e00', background: 'rgba(252, 203, 26, 0.15)' }}>POUR LE VENDEUR</span>
+            </div>
+            <div className="feature-card-body">
+              <h3 style={{ fontSize: '20px', marginBottom: '14px' }}>Protection vendeur</h3>
+              <p style={{ marginBottom: '16px', fontSize: '14px' }}>
+                Expédiez vos commandes en sachant que le paiement est déjà garanti et réservé.
+              </p>
+              <ul style={{ paddingLeft: '18px', margin: 0, color: 'var(--muted)', fontSize: '13.5px', lineHeight: 2 }}>
+                <li><strong>Paiement garanti d’avance :</strong> notification de réservation avant l’envoi.</li>
+                <li><strong>Conditions prévisibles :</strong> les règles de règlement sont convenues dès le départ.</li>
+                <li><strong>Suivi de livraison synchronisé :</strong> preuve d’acheminement partagée en temps réel.</li>
+                <li><strong>Règlement rapide :</strong> les fonds sont débloqués immédiatement après validation.</li>
+              </ul>
+            </div>
+            <div className="feature-card-footer" style={{ marginTop: '20px' }}>
+              <span className="feature-pill" style={{ color: '#8c6e00', borderColor: 'rgba(252, 203, 26, 0.3)' }}>
+                <CheckCircle2 className="feature-pill-icon" style={{ color: '#b38600' }} />
+                <span>Zéro risque d’impayé après livraison</span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1097,8 +1160,8 @@ export default function Page() {
             <div className="app-floating-badge badge-notif">
               <span className="app-badge-dot" />
               <div>
-                <strong>Colis #DZ-00159 Yalidine Express</strong>
-                <small>En cours · Déblocage par code OTP</small>
+                <strong>Commande en cours de livraison</strong>
+                <small>Validation à la réception</small>
               </div>
             </div>
 
@@ -1116,7 +1179,7 @@ export default function Page() {
               <ShieldCheck className="badge-shield-icon" />
               <div>
                 <small>Solde Wallet Digital</small>
-                <strong>51 600 DZD (Séquestre SATIM)</strong>
+                <strong>51 600 DZD (Sécurisé)</strong>
               </div>
             </div>
           </div>
@@ -1124,21 +1187,21 @@ export default function Page() {
 
         {/* Right: Rich Copy, Feature Value Props, Download Box */}
         <div className="app-copy">
-          <div className="kicker dark"><span /> EXPÉRIENCE MOBILE & SITE 100% UNIFIÉE</div>
-          <h2>Plus qu’un portefeuille.<br /><span>Toute la puissance dans votre poche.</span></h2>
+          <div className="kicker dark"><span /> APPLICATION DINARI</div>
+          <h2>Votre portefeuille.<br /><span>Votre protection.</span></h2>
           <p className="app-lead">
-            L’expérience mobile Dinari restitue l’intégralité des capacités du site web : <strong>Wallet digital</strong> en DZD, gestion financière complète, paiement direct <strong>CIB / Edahabia</strong>, transferts <strong>P2P instantanés</strong> et protection des transactions sous <strong>séquestre</strong> pour le commerce en ligne.
+            Dinari réunit un <strong>wallet digital en dinars algériens (DZD)</strong> et un moteur de protection des transactions. Gérez vos fonds, réglez vos achats en ligne et vendez avec l’assurance que chaque dinar engagé est sous contrôle.
           </p>
 
-          {/* 4 Rich Value Proposition Cards matching the platform experience */}
+          {/* Core capabilities */}
           <div className="app-feature-list">
             <div className="app-feature-row">
               <div className="app-feat-icon feat-teal">
                 <Wallet />
               </div>
               <div className="app-feat-text">
-                <strong>Wallet Digital & Solde en temps réel</strong>
-                <span>Portefeuille électronique en DZD. Rechargez par CIB / Edahabia, visualisez votre solde actif et gérez vos avoirs en un clic.</span>
+                <strong>Wallet en dinars (DZD) & Solde en direct</strong>
+                <span>Rechargez votre portefeuille, visualisez votre solde en temps réel et gardez une visibilité permanente sur vos avoirs.</span>
               </div>
             </div>
 
@@ -1147,8 +1210,8 @@ export default function Page() {
                 <ShieldCheck />
               </div>
               <div className="app-feat-text">
-                <strong>Séquestre Marketplace & Protection</strong>
-                <span>Achetez et vendez sur les marketplaces en toute sérénité : les fonds restent consignés jusqu’à confirmation physique de réception.</span>
+                <strong>Transactions sous séquestre</strong>
+                <span>Achetez et vendez l’esprit tranquille : les fonds restent sécurisés jusqu’à la confirmation de livraison et de conformité.</span>
               </div>
             </div>
 
@@ -1157,8 +1220,8 @@ export default function Page() {
                 <Repeat />
               </div>
               <div className="app-feat-text">
-                <strong>Paiement digital & Transfert P2P instantané</strong>
-                <span>Envoyez de l’argent entre utilisateurs Dinari en quelques secondes, sans frais cachés et avec reçu numérique certifié.</span>
+                <strong>Transferts P2P entre utilisateurs</strong>
+                <span>Transférez des fonds en quelques clics entre proches et partenaires, sans complexité et avec historique immédiat.</span>
               </div>
             </div>
 
@@ -1167,8 +1230,8 @@ export default function Page() {
                 <Activity />
               </div>
               <div className="app-feat-text">
-                <strong>Gestion financière & Traçabilité SATIM</strong>
-                <span>Suivi dynamique Yalidine Express, double validation par code OTP et historique infalsifiable sur l’ensemble des 58 wilayas.</span>
+                <strong>Suivi des commandes & Historique clair</strong>
+                <span>Consultez le statut de chaque commande, l’état de vos séquestres et vos reçus d’opérations horodatés.</span>
               </div>
             </div>
           </div>
@@ -1195,15 +1258,15 @@ export default function Page() {
               </div>
               <div className="app-spec-item">
                 <span className="spec-label">VERSION</span>
-                <b>v1.0.5 (APK)</b>
+                <b>v1.0.5</b>
               </div>
               <div className="app-spec-item">
-                <span className="spec-label">TAILLE</span>
-                <b>14.8 Mo</b>
+                <span className="spec-label">TYPE</span>
+                <b>Application sécurisée</b>
               </div>
               <div className="app-spec-item">
                 <span className="spec-label">SÉCURITÉ</span>
-                <b className="spec-verified">✓ Certifié sécurisé</b>
+                <b className="spec-verified">✓ Vérifié</b>
               </div>
             </div>
           </div>
@@ -1219,7 +1282,7 @@ export default function Page() {
           <div className="engine-intro-col-left">
             <div className="kicker kicker-gold">
               <span className="pulse-dot" />
-              INFRASTRUCTURE FINANCIÈRE &amp; API
+              INFRASTRUCTURE B2B &amp; API
             </div>
             <h2>
               Dinari<br />
@@ -1227,19 +1290,19 @@ export default function Page() {
             </h2>
             <div className="engine-header-cta">
               <a className="button button-gold-glow" href="/engine">
-                Documentation API <ArrowUpRight />
+                Explorer Dinari Engine <ArrowUpRight />
               </a>
               <span className="engine-latency-tag">
-                <span className="latency-indicator" /> Latence p99 &lt; 42ms
+                <span className="latency-indicator" /> Infrastructure programmable
               </span>
             </div>
           </div>
           <div className="engine-intro-col-right">
             <p className="engine-lead">
-              L’orchestration financière programmable pour le commerce algérien.
+              L’infrastructure de confiance pour les plateformes digitales.
             </p>
             <p className="engine-description">
-              Automatisez la séquestration, la libération sous séquestre et la réconciliation financière sans changer de banque ni d’acquéreur.
+              Dinari Engine permet aux marketplaces, sites e-commerce et entreprises d’intégrer des workflows de séquestre, de contrôle et de règlement dans leurs propres produits grâce à une API programmable.
             </p>
             
             {/* Architectural Positioning Callout */}
@@ -1248,9 +1311,9 @@ export default function Page() {
                 <span className="not-symbol">≠</span>
               </div>
               <div className="positioning-copy">
-                <b>Couche logicielle d’escrow &amp; réconciliation programmable.</b>
+                <b>Une infrastructure d’orchestration de confiance dédiée aux plateformes.</b>
                 <p>
-                  Connectée directement à vos infrastructures existantes : CIB, Edahabia, banques partenaires et transporteurs.
+                  Intégrez la réservation, le déblocage conditionnel et le suivi d’acheminement directement dans vos systèmes existants.
                 </p>
               </div>
             </div>
@@ -1414,7 +1477,7 @@ export default function Page() {
             </h2>
 
             <p className="engine-mobile-lead">
-              L’orchestration financière et d’escrow programmable pour les marketplaces et plateformes algériennes.
+              L’infrastructure de séquestre et de règlement programmable pour les marketplaces et plateformes algériennes.
             </p>
 
             {/* 4 Key Pillars */}
@@ -1425,15 +1488,15 @@ export default function Page() {
               </div>
               <div className="engine-perk-item">
                 <ShieldCheck className="perk-icon" />
-                <span>Séquestre SATIM garanti</span>
+                <span>Séquestre programmable</span>
               </div>
               <div className="engine-perk-item">
                 <Zap className="perk-icon" />
-                <span>Latence p99 &lt; 42ms</span>
+                <span>Intégration rapide</span>
               </div>
               <div className="engine-perk-item">
                 <Terminal className="perk-icon" />
-                <span>Sandbox DZD prêt</span>
+                <span>Environnement Sandbox</span>
               </div>
             </div>
 
@@ -1857,7 +1920,7 @@ export default function Page() {
         <div className="section-head split trust-head">
           <div>
             <div className="kicker kicker-teal">
-              <span className="pulse-dot-teal" /> SÉCURITÉ &amp; TRANSPARENCE RADICALE
+              <span className="pulse-dot-teal" /> SÉCURITÉ &amp; TRANSPARENCE
             </div>
             <h2>
               La confiance ne doit<br />
@@ -1866,10 +1929,10 @@ export default function Page() {
           </div>
           <div className="trust-head-copy">
             <p>
-              La confiance ne se décrète pas : elle se prouve avec des états compréhensibles, des contrôles cryptographiques infaillibles et un historique consultable à chaque instant.
+              La confiance ne se décrète pas : elle repose sur des étapes compréhensibles, des contrôles d’accès rigoureux et une traçabilité consultable à chaque instant.
             </p>
             <div className="trust-live-pill">
-              <span className="live-ping-dot" /> Audit de transaction actif en direct
+              <span className="live-ping-dot" /> Traçabilité active des transactions
             </div>
           </div>
         </div>
@@ -1913,29 +1976,29 @@ export default function Page() {
           <div className="assurance-item">
             <div className="assurance-icon"><ShieldCheck /></div>
             <div>
-              <b>Séquestre Dédié 100%</b>
-              <span>Fonds cantonnés hors du bilan opérationnel de l’entreprise</span>
+              <b>Séquestre Transactionnel</b>
+              <span>Montants réservés jusqu’à la confirmation de livraison</span>
             </div>
           </div>
           <div className="assurance-item">
             <div className="assurance-icon"><Lock /></div>
             <div>
-              <b>Chiffrement AES-256 &amp; TLS 1.3</b>
-              <span>Norme de sécurité bancaire et secrets d’accès tokenisés</span>
+              <b>Chiffrement des Communications</b>
+              <span>Échanges sécurisés via des protocoles de chiffrement éprouvés</span>
             </div>
           </div>
           <div className="assurance-item">
-            <div className="assurance-icon"><Network /></div>
+            <div className="assurance-icon"><Repeat /></div>
             <div>
-              <b>Interopérabilité SATIM &amp; CIB</b>
-              <span>Paiements nationaux conformes aux règles de compensation</span>
+              <b>Idempotence &amp; Fiabilité</b>
+              <span>Protection native contre les doubles débits et répétitions accidentelles</span>
             </div>
           </div>
           <div className="assurance-item">
             <div className="assurance-icon"><Scale /></div>
             <div>
-              <b>Médiation Locale en Algérie</b>
-              <span>Support d’arbitrage basé à Alger, disponible 7j/7</span>
+              <b>Processus de Médiation</b>
+              <span>Gestion équitable des réclamations en cas de non-conformité</span>
             </div>
           </div>
         </div>
@@ -1949,19 +2012,19 @@ export default function Page() {
         <div className="section-head split cycle-head">
           <div>
             <div className="kicker kicker-teal">
-              <span className="pulse-dot-teal" /> WORKFLOW &amp; PROTOCOLE DE SÉQUESTRE
+              <span className="pulse-dot-teal" /> WORKFLOW DE SÉQUESTRE
             </div>
             <h2>
               Simple à comprendre.<br />
-              <span className="cycle-gradient-text">Sérieux à exécuter.</span>
+              <span className="cycle-gradient-text">Rigoureux à exécuter.</span>
             </h2>
           </div>
           <div className="cycle-head-copy">
             <p>
-              Pour l’acheteur comme pour le vendeur, le parcours tient en 4 étapes fluides. En coulisses, Dinari Engine orchestre un automate à états finis strict qui élimine toute asymétrie de confiance.
+              Pour l’acheteur comme pour le vendeur, le parcours suit 5 étapes claires. Chaque étape protège les deux parties et garantit que les conditions sont remplies avant tout déblocage.
             </p>
             <div className="cycle-live-pill">
-              <span className="live-ping-dot" /> Automate déterministe actif
+              <span className="live-ping-dot" /> Workflow actif
             </div>
           </div>
         </div>
@@ -1995,8 +2058,8 @@ export default function Page() {
           </div>
         </div>
 
-        {/* 4 Connected Cards Grid */}
-        <div className="cycle-cards-grid">
+        {/* 5 Connected Cards Grid */}
+        <div className="cycle-cards-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
           {cycleSteps.map((item, idx) => {
             const Icon = item.icon
             const isSelected = activeCycleStep === idx
@@ -2053,7 +2116,7 @@ export default function Page() {
           <div className="inspector-console-head">
             <div className="inspector-console-title">
               <span className="console-radar-dot" />
-              <b>INSPECTEUR D’AUTOMATE · ÉTAPE {cycleSteps[activeCycleStep].num} / 04</b>
+              <b>INSPECTEUR DE TRANSACTION · ÉTAPE {cycleSteps[activeCycleStep].num} / 05</b>
               <span className="inspector-phase-tag">{cycleSteps[activeCycleStep].stepName}</span>
             </div>
             <div className="inspector-controls">
@@ -2096,21 +2159,21 @@ export default function Page() {
                 <div className="inspector-check-item">
                   <div className="check-icon"><CheckCircle2 /></div>
                   <div>
-                    <b>Protocole d’exécution strict</b>
+                    <b>Protocole clair</b>
                     <span>{cycleSteps[activeCycleStep].protocol}</span>
                   </div>
                 </div>
                 <div className="inspector-check-item">
                   <div className="check-icon"><ShieldCheck /></div>
                   <div>
-                    <b>Garantie de non-répudiation</b>
+                    <b>Garantie de transaction</b>
                     <span>{cycleSteps[activeCycleStep].guarantee}</span>
                   </div>
                 </div>
                 <div className="inspector-check-item">
                   <div className="check-icon"><BadgeCheck /></div>
                   <div>
-                    <b>Intervenants &amp; Rôles synchronisés</b>
+                    <b>Acteurs concernés</b>
                     <span>{cycleSteps[activeCycleStep].actors}</span>
                   </div>
                 </div>
@@ -2125,7 +2188,7 @@ export default function Page() {
                   <span className="dot dot-yellow" />
                   <span className="dot dot-green" />
                 </div>
-                <span className="code-pane-filename">dinari_state_machine.json</span>
+                <span className="code-pane-filename">dinari_transaction.json</span>
                 <button
                   type="button"
                   className="code-pane-copy"
@@ -2141,9 +2204,9 @@ export default function Page() {
               </pre>
               <div className="code-pane-foot">
                 <span className="code-foot-hash">
-                  <CheckCircle2 /> Empreinte d’état vérifiée par SHA-256
+                  <CheckCircle2 /> Événement transactionnel horodaté
                 </span>
-                <span className="code-foot-state">État séquentiel immuable</span>
+                <span className="code-foot-state">Statut vérifié</span>
               </div>
             </div>
           </div>
@@ -2154,8 +2217,8 @@ export default function Page() {
           <div className="ribbon-card">
             <div className="ribbon-icon"><ShieldCheck /></div>
             <div>
-              <b>Automate à états déterministe</b>
-              <p>Aucun raccourci possible : un fonds ne peut pas être débloqué sans passage par le séquestre et le scan de réception.</p>
+              <b>Séquence d’étapes obligatoire</b>
+              <p>Aucun raccourci possible : les fonds ne peuvent pas être débloqués sans confirmation de la livraison.</p>
             </div>
           </div>
           <div className="ribbon-card">
@@ -2168,8 +2231,8 @@ export default function Page() {
           <div className="ribbon-card">
             <div className="ribbon-icon"><Scale /></div>
             <div>
-              <b>Résolution locale sous 24h</b>
-              <p>En cas d’anomalie ou de retour colis, l’équipe de médiation Dinari à Alger intervient sur la base du journal d’audit.</p>
+              <b>Résolution équitable</b>
+              <p>En cas d’anomalie ou de retour colis, le processus de médiation Dinari intervient sur la base des preuves d’expédition.</p>
             </div>
           </div>
         </div>
@@ -2460,7 +2523,7 @@ export default function Page() {
     </section>
 
     {/* =========================================================================
-        Final CTA Section - Sovereign Fintech Protocol Closing
+        Final CTA Section - 2 Clear Pathways (App vs Engine)
         ========================================================================= */}
     <section className="final-cta-v2" id="rejoindre">
       <div className="final-cta-glow-bg" />
@@ -2469,27 +2532,27 @@ export default function Page() {
       <div className="container final-cta-container">
         <div className="final-cta-badge">
           <ShieldCheck className="final-cta-badge-icon" />
-          <span>LE PROTOCOLE DE SÉQUESTRE NUMÉRIQUE EN ALGÉRIE</span>
+          <span>SÉCURISATION DES TRANSACTIONS EN ALGÉRIE</span>
         </div>
 
         <h2 className="final-cta-title">
-          Prêt à sécuriser vos transactions <br />
-          <em>et éliminer tout risque d’impayé ?</em>
+          Une nouvelle façon de sécuriser <br />
+          <em>les transactions digitales.</em>
         </h2>
 
         <p className="final-cta-lead">
-          Rejoignez le premier réseau de séquestre décentralisé en Algérie. Que vous vendiez sur les réseaux sociaux, opériez une marketplace ou commandiez en e-commerce 58 wilayas : chaque dinar est protégé sous code OTP jusqu’à validation conforme.
+          Que vous soyez un acheteur souhaitant commander en toute sérénité, un commerçant voulant garantir ses ventes, ou une marketplace intégrant notre infrastructure : Dinari sécurise vos opérations.
         </p>
 
-        {/* 3 Main Direct Action Pathways */}
-        <div className="final-cta-actions">
+        {/* 2 Main Pathways: App vs Engine */}
+        <div className="final-cta-actions" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', maxWidth: '780px', margin: '0 auto 40px' }}>
           <a className="final-btn final-btn-gold" href="#download">
             <div className="final-btn-icon-wrap">
               <Smartphone className="final-btn-icon" />
             </div>
             <div className="final-btn-text">
-              <strong>Démarrer sur Android</strong>
-              <small>Télécharger l’Application v1.0.5</small>
+              <strong>Découvrir l’application</strong>
+              <small>Pour acheteurs et vendeurs</small>
             </div>
             <ArrowRight className="final-btn-arrow" />
           </a>
@@ -2499,45 +2562,11 @@ export default function Page() {
               <Code2 className="final-btn-icon" />
             </div>
             <div className="final-btn-text">
-              <strong>Intégrer Dinari Engine</strong>
-              <small>Documentation API & Sandbox DZD</small>
+              <strong>Explorer Dinari Engine</strong>
+              <small>Pour entreprises et marketplaces</small>
             </div>
             <ArrowUpRight className="final-btn-arrow" />
           </a>
-
-          <a className="final-btn final-btn-outline" href="mailto:contact@dinari.com">
-            <div className="final-btn-icon-wrap">
-              <Mail className="final-btn-icon" />
-            </div>
-            <div className="final-btn-text">
-              <strong>Partenariats & B2B</strong>
-              <small>contact@dinari.com</small>
-            </div>
-            <ExternalLink className="final-btn-arrow" />
-          </a>
-        </div>
-
-        {/* Metric Badges Strip */}
-        <div className="final-cta-metrics">
-          <div className="final-metric-item">
-            <div className="final-metric-value">100%</div>
-            <div className="final-metric-label">Fonds Séquestrés & Isolés</div>
-          </div>
-          <div className="final-metric-divider" />
-          <div className="final-metric-item">
-            <div className="final-metric-value">0 DZD</div>
-            <div className="final-metric-label">Frais Cachés à l’Inscription</div>
-          </div>
-          <div className="final-metric-divider" />
-          <div className="final-metric-item">
-            <div className="final-metric-value">58 Wilayas</div>
-            <div className="final-metric-label">Couverture Nationale CIB / Edahabia</div>
-          </div>
-          <div className="final-metric-divider" />
-          <div className="final-metric-item">
-            <div className="final-metric-value">99.98%</div>
-            <div className="final-metric-label">Disponibilité Opérationnelle</div>
-          </div>
         </div>
       </div>
     </section>
@@ -2562,12 +2591,12 @@ export default function Page() {
           <div className="footer-col footer-col-brand">
             <Brand />
             <p className="footer-brand-mission">
-              Le premier protocole de séquestre numérique et de confiance bipartite en Algérie. Protège les acheteurs contre la fraude et garantit aux vendeurs le paiement intégral avant expédition.
+              La plateforme de confiance et de sécurisation des transactions pour le commerce digital en Algérie. Protège les acheteurs et garantit aux vendeurs le règlement de leurs commandes.
             </p>
             <div className="footer-contact-box">
               <div className="footer-contact-row">
                 <MapPin className="footer-contact-icon" />
-                <span>Alger, Algérie — Déploiement 58 Wilayas</span>
+                <span>Alger, Algérie</span>
               </div>
               <div className="footer-contact-row">
                 <Mail className="footer-contact-icon" />
@@ -2575,7 +2604,7 @@ export default function Page() {
               </div>
               <div className="footer-contact-row">
                 <Activity className="footer-contact-icon" />
-                <span>Support & Médiation 7j/7</span>
+                <span>Support & Médiation client</span>
               </div>
             </div>
           </div>
@@ -2586,8 +2615,8 @@ export default function Page() {
             <ul className="footer-link-list">
               <li>
                 <a href="#download">
-                  <span>Application Mobile Android</span>
-                  <span className="footer-tag-hot">APK v1.0.5</span>
+                  <span>Application Mobile Dinari</span>
+                  <span className="footer-tag-hot">v1.0.5</span>
                 </a>
               </li>
               <li>
@@ -2597,47 +2626,47 @@ export default function Page() {
                 </a>
               </li>
               <li>
-                <a href="#fonctionnement">Démonstration Séquestre</a>
+                <a href="#fonctionnement">Comment ça marche</a>
               </li>
               <li>
-                <a href="#fonctionnement">Ledger Cryptographique Public</a>
+                <a href="#avantages">Protection Acheteur & Vendeur</a>
               </li>
               <li>
-                <a href="#cycle">Cycle de Vie des Transactions</a>
+                <a href="#cycle">Cycle de la transaction</a>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Sécurité & Conformité */}
+          {/* Column 3: Sécurité & Confiance */}
           <div className="footer-col">
-            <h4 className="footer-col-title">Sécurité & Conformité</h4>
+            <h4 className="footer-col-title">Sécurité & Confiance</h4>
             <ul className="footer-link-list">
               <li>
                 <a href="#securite">
                   <ShieldCheck className="footer-mini-icon" />
-                  <span>Protocole Séquestre Bipartite</span>
-                </a>
-              </li>
-              <li>
-                <a href="#securite">
-                  <BadgeCheck className="footer-mini-icon" />
-                  <span>Conformité Loi 18-05 & SATIM</span>
+                  <span>Mécanisme de Séquestre</span>
                 </a>
               </li>
               <li>
                 <a href="#securite">
                   <Lock className="footer-mini-icon" />
-                  <span>Coffre-fort Cryptographique OTP</span>
+                  <span>Protection des Opérations</span>
+                </a>
+              </li>
+              <li>
+                <a href="#securite">
+                  <BadgeCheck className="footer-mini-icon" />
+                  <span>Traçabilité des Livraisons</span>
                 </a>
               </li>
               <li>
                 <a href="#faq">
                   <Scale className="footer-mini-icon" />
-                  <span>Procédure de Médiation & Arbitrage</span>
+                  <span>Procédure de Résolution</span>
                 </a>
               </li>
               <li>
-                <a href="#securite">Politique de Sécurité des Données</a>
+                <a href="#securite">Confidentialité des Données</a>
               </li>
             </ul>
           </div>
@@ -2649,27 +2678,27 @@ export default function Page() {
               <li>
                 <a href="/engine#api">
                   <Terminal className="footer-mini-icon" />
-                  <span>Documentation API REST</span>
+                  <span>Documentation API</span>
                 </a>
               </li>
               <li>
-                <a href="/engine#api">
+                <a href="/engine#sandbox">
                   <Code2 className="footer-mini-icon" />
-                  <span>Sandbox Testnet DZD</span>
+                  <span>Environnement Test</span>
                 </a>
               </li>
               <li>
-                <a href="#faq">Questions Fréquentes (FAQ)</a>
+                <a href="#faq">Foire Aux Questions (FAQ)</a>
               </li>
               <li>
                 <a href="mailto:contact@dinari.com">
                   <Mail className="footer-mini-icon" />
-                  <span>Support Développeurs & B2B</span>
+                  <span>Support Technique & B2B</span>
                 </a>
               </li>
               <li>
                 <a href="mailto:contact@dinari.com">
-                  <span>Partenariats Stratégiques</span>
+                  <span>Échanger avec l’équipe</span>
                   <ExternalLink className="footer-sub-arrow" />
                 </a>
               </li>
@@ -2680,7 +2709,7 @@ export default function Page() {
         {/* Bottom Bar: Copyright, Legal & Back to Top */}
         <div className="footer-v2-bottom">
           <div className="footer-bottom-copy">
-            © 2026 Dinari. Tous droits réservés. Fièrement développé pour propulser l’économie de confiance en Algérie.
+            © 2026 Dinari. Tous droits réservés. Plateforme de confiance et sécurisation des transactions en Algérie.
           </div>
 
           <div className="footer-bottom-links">
