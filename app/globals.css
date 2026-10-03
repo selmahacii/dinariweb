@@ -8522,6 +8522,106 @@ html{scroll-behavior:smooth}.engine-page{overflow:hidden}.engine-nav{position:st
   color: var(--gold);
 }
 
+/* Inside Phone Mockup Capabilities Dock */
+.phone-mockup-dock {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 46px;
+  z-index: 9;
+  background: rgba(4, 18, 38, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 10px 10px 8px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+}
+
+.mockup-dock-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font: 8.5px monospace;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  color: #94a3b8;
+  margin-bottom: 8px;
+}
+
+.dock-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 6px var(--gold);
+}
+
+.mockup-dock-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.dock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 3px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.2s ease;
+}
+
+.dock-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(252, 203, 26, 0.3);
+  transform: translateY(-2px);
+}
+
+.dock-icon-box {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+}
+
+.dock-icon-box svg {
+  width: 13px;
+  height: 13px;
+}
+
+.dock-icon-box.gold {
+  background: rgba(252, 203, 26, 0.15);
+  color: var(--gold);
+  border: 1px solid rgba(252, 203, 26, 0.25);
+}
+
+.dock-icon-box.teal {
+  background: rgba(0, 128, 128, 0.2);
+  color: #4bd2aa;
+  border: 1px solid rgba(0, 128, 128, 0.3);
+}
+
+.dock-icon-box.green {
+  background: rgba(16, 185, 129, 0.18);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.dock-item span {
+  font-size: 8.5px;
+  font-weight: 700;
+  color: #e2e8f0;
+  white-space: nowrap;
+  line-height: 1;
+}
+
 /* Visual Label Styled as Wallet Card (Desktop) */
 .visual-label {
   position: absolute;
@@ -11497,6 +11597,7 @@ html, body {
     width: 100% !important;
   }
 
+  /* Hero Visual Mockup Dock & Micro Elements */
   .hero-visual .phone-wrap {
     width: 270px !important;
     margin: 0 auto !important;
@@ -11510,26 +11611,167 @@ html, body {
     margin: 0 auto !important;
   }
 
+  /* « SÉQUESTRE ACTIF » : Petite, discrète et élégante sur mobile */
   .hero-visual .visual-label {
-    top: -15px !important;
+    top: -12px !important;
     right: 50% !important;
     transform: translateX(50%) !important;
-    font-size: 10px !important;
-    padding: 5px 12px !important;
+    font-size: 8.5px !important;
+    padding: 4px 10px !important;
+    border-radius: 20px !important;
+    gap: 3px !important;
     white-space: nowrap !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45) !important;
+    border: 1px solid rgba(252, 203, 26, 0.35) !important;
+    background: rgba(3, 20, 44, 0.94) !important;
+    backdrop-filter: blur(8px) !important;
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+
+  .hero-visual .visual-label-head {
+    display: none !important;
+  }
+
+  .hero-visual .visual-label-body {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+
+  .hero-visual .visual-label-body strong {
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.3px !important;
+    color: #ffffff !important;
+  }
+
+  .hero-visual .visual-label-body small {
+    font-size: 8px !important;
+    font-weight: 800 !important;
+    color: var(--gold) !important;
+    background: rgba(252, 203, 26, 0.15) !important;
+    padding: 1px 5px !important;
+    border-radius: 4px !important;
+  }
+
+  .hero-visual .visual-label-sub {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    font-size: 8px !important;
+    color: #94a3b8 !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.18) !important;
+    padding-left: 6px !important;
+    margin-left: 2px !important;
+  }
+
+  .hero-visual .visual-sub-icon {
+    width: 9px !important;
+    height: 9px !important;
+    color: #10b981 !important;
   }
 
   /* Clean up floating chips on mobile to prevent overlapping */
   .hero-visual .chip-one {
-    left: -12px !important;
-    top: 75% !important;
-    font-size: 10px !important;
-    padding: 8px 12px !important;
-    z-index: 10 !important;
+    display: none !important;
   }
 
   .hero-visual .chip-two {
     display: none !important;
+  }
+
+  /* Inside Mockup Capabilities Dock */
+  .phone-mockup-dock {
+    position: absolute !important;
+    left: 8px !important;
+    right: 8px !important;
+    bottom: 38px !important;
+    z-index: 9 !important;
+    background: rgba(5, 20, 37, 0.92) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 16px !important;
+    padding: 8px 6px 7px !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  .mockup-dock-title {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    font: 7.5px monospace !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.6px !important;
+    color: #94a3b8 !important;
+    margin-bottom: 6px !important;
+  }
+
+  .dock-dot {
+    width: 4px !important;
+    height: 4px !important;
+    border-radius: 50% !important;
+    background: var(--gold) !important;
+    box-shadow: 0 0 5px var(--gold) !important;
+  }
+
+  .mockup-dock-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 4px !important;
+  }
+
+  .dock-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    padding: 4px 2px !important;
+    border-radius: 8px !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  }
+
+  .dock-icon-box {
+    width: 22px !important;
+    height: 22px !important;
+    border-radius: 6px !important;
+    display: grid !important;
+    place-items: center !important;
+  }
+
+  .dock-icon-box svg {
+    width: 11px !important;
+    height: 11px !important;
+  }
+
+  .dock-icon-box.gold {
+    background: rgba(252, 203, 26, 0.15) !important;
+    color: var(--gold) !important;
+    border: 1px solid rgba(252, 203, 26, 0.25) !important;
+  }
+
+  .dock-icon-box.teal {
+    background: rgba(0, 128, 128, 0.2) !important;
+    color: #4bd2aa !important;
+    border: 1px solid rgba(0, 128, 128, 0.3) !important;
+  }
+
+  .dock-icon-box.green {
+    background: rgba(16, 185, 129, 0.18) !important;
+    color: #34d399 !important;
+    border: 1px solid rgba(16, 185, 129, 0.25) !important;
+  }
+
+  .dock-item span {
+    font-size: 7.5px !important;
+    font-weight: 700 !important;
+    color: #e2e8f0 !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
   }
 
   /* Section 4 & 5: Mobile Protected Accordions */
