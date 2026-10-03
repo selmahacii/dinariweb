@@ -13,6 +13,7 @@ import {
   Check,
   CheckCircle2,
   ChevronDown,
+  ChevronUp,
   CircleCheck,
   Code2,
   Copy,
@@ -698,6 +699,19 @@ export default function Page() {
   const [ecoTab, setEcoTab] = useState<'consumer' | 'engine'>('consumer')
   const apkReady = Boolean(APK_DOWNLOAD_URL)
 
+  // Mobile-First Progressive Disclosure States
+  const [mobileProblemBuyerOpen, setMobileProblemBuyerOpen] = useState(false)
+  const [mobileProblemSellerOpen, setMobileProblemSellerOpen] = useState(false)
+  const [mobileBuyerAccordion, setMobileBuyerAccordion] = useState<number | null>(null)
+  const [mobileSellerAccordion, setMobileSellerAccordion] = useState<number | null>(null)
+  const [showDemoTechDetails, setShowDemoTechDetails] = useState(false)
+  const [showApkSpecs, setShowApkSpecs] = useState(false)
+  const [showEngineArchMobile, setShowEngineArchMobile] = useState(false)
+  const [showApiCodeMobile, setShowApiCodeMobile] = useState(false)
+  const [showAllSecurityMobile, setShowAllSecurityMobile] = useState(false)
+  const [showCycleDataMobile, setShowCycleDataMobile] = useState(false)
+  const [footerGroupMobile, setFooterGroupMobile] = useState<string | null>(null)
+
   const filteredFaqs = faqs.filter((item) => {
     if (faqCategory === 'all') return true
     return item.category === faqCategory
@@ -751,11 +765,11 @@ export default function Page() {
             Dinari sécurise les transactions entre acheteurs et vendeurs grâce à un mécanisme de séquestre et de validation à la livraison. Achetez avec confiance. Vendez avec la certitude que votre transaction est sécurisée.
           </p>
           <div className="hero-buttons">
-            <a className="button button-gold" href="#fonctionnement">
-              Découvrir Dinari <ArrowRight />
+            <a className="button button-gold hero-btn-main" href="#fonctionnement">
+              <span>Découvrir Dinari</span> <ArrowRight />
             </a>
-            <a className="text-link" href="#download">
-              Télécharger l’application <ArrowUpRight />
+            <a className="button button-navy hero-btn-sub" href="#download">
+              <span>Télécharger l’application</span> <Download />
             </a>
           </div>
         </div>
@@ -822,6 +836,7 @@ export default function Page() {
 
         {/* 2 Problem Cards + Dinari Trust Solution */}
         <div className="feature-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)', marginBottom: '32px' }}>
+          {/* Card Acheteur */}
           <div className="feature-card">
             <div className="feature-card-header">
               <div className="feature-icon-box">
@@ -832,10 +847,22 @@ export default function Page() {
             <div className="feature-card-body">
               <h3 style={{ fontSize: '19px', marginBottom: '12px' }}>« Et si le produit ne correspond pas ? »</h3>
               <ul style={{ paddingLeft: '18px', margin: 0, color: 'var(--muted)', fontSize: '13.5px', lineHeight: 1.8 }}>
-                {problemPointsBuyer.map((pt, idx) => (
-                  <li key={idx}>{pt}</li>
-                ))}
+                <li>Et si le colis reçu ne correspond pas à ce qui a été promis ?</li>
+                <li>Et si le produit arrive endommagé ou défectueux ?</li>
+                {/* On mobile: 3rd point is disclosed */}
+                <li className={`problem-extra-point ${!mobileProblemBuyerOpen ? 'mobile-hidden' : ''}`}>
+                  Payer en avance comporte un risque d’abandon ou d’arnaque.
+                </li>
               </ul>
+              <button
+                type="button"
+                className="mobile-details-btn mobile-only"
+                onClick={() => setMobileProblemBuyerOpen(!mobileProblemBuyerOpen)}
+                aria-expanded={mobileProblemBuyerOpen}
+              >
+                <span>{mobileProblemBuyerOpen ? 'Masquer les détails' : 'Voir les détails'}</span>
+                {mobileProblemBuyerOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
             </div>
             <div className="feature-card-footer">
               <span className="feature-pill">
@@ -845,6 +872,7 @@ export default function Page() {
             </div>
           </div>
 
+          {/* Card Vendeur */}
           <div className="feature-card">
             <div className="feature-card-header">
               <div className="feature-icon-box accent-gold">
@@ -855,10 +883,22 @@ export default function Page() {
             <div className="feature-card-body">
               <h3 style={{ fontSize: '19px', marginBottom: '12px' }}>« Et si j’expédie sans certitude d’être payé ? »</h3>
               <ul style={{ paddingLeft: '18px', margin: 0, color: 'var(--muted)', fontSize: '13.5px', lineHeight: 1.8 }}>
-                {problemPointsSeller.map((pt, idx) => (
-                  <li key={idx}>{pt}</li>
-                ))}
+                <li>Et si j’expédie le colis et que l’acheteur refuse de payer ?</li>
+                <li>Les retours de livraison coûtent cher et bloquent la marchandise.</li>
+                {/* On mobile: 3rd point is disclosed */}
+                <li className={`problem-extra-point ${!mobileProblemSellerOpen ? 'mobile-hidden' : ''}`}>
+                  Attendre l’argent du transporteur crée de l’incertitude de trésorerie.
+                </li>
               </ul>
+              <button
+                type="button"
+                className="mobile-details-btn mobile-only"
+                onClick={() => setMobileProblemSellerOpen(!mobileProblemSellerOpen)}
+                aria-expanded={mobileProblemSellerOpen}
+              >
+                <span>{mobileProblemSellerOpen ? 'Masquer les détails' : 'Voir les détails'}</span>
+                {mobileProblemSellerOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
             </div>
             <div className="feature-card-footer">
               <span className="feature-pill" style={{ color: '#8c6e00', borderColor: 'rgba(252, 203, 26, 0.3)' }}>
@@ -908,12 +948,45 @@ export default function Page() {
               <p style={{ marginBottom: '16px', fontSize: '14px' }}>
                 Achetez en ligne sans crainte des mauvaises surprises ou des livraisons non conformes.
               </p>
-              <ul style={{ paddingLeft: '18px', margin: 0, color: 'var(--muted)', fontSize: '13.5px', lineHeight: 2 }}>
+
+              {/* Desktop Full List */}
+              <ul className="desktop-only" style={{ paddingLeft: '18px', margin: 0, color: 'var(--muted)', fontSize: '13.5px', lineHeight: 2 }}>
                 <li><strong>Vérification des conditions :</strong> prix et termes validés avant tout débit.</li>
                 <li><strong>Fonds protégés :</strong> le montant reste sous séquestre jusqu’à la livraison.</li>
                 <li><strong>Validation à la réception :</strong> vous confirmez la bonne réception de votre commande.</li>
                 <li><strong>Gestion des anomalies :</strong> assistance dédiée en cas de colis endommagé ou non conforme.</li>
               </ul>
+
+              {/* Mobile Accordion Items */}
+              <div className="mobile-protected-accordion mobile-only">
+                {[
+                  { title: 'Vérification des conditions', text: 'Prix et termes validés avant tout débit.' },
+                  { title: 'Fonds protégés', text: 'Le montant reste sous séquestre jusqu’à la livraison.' },
+                  { title: 'Validation à la réception', text: 'Vous confirmez la bonne réception de votre commande.' },
+                  { title: 'Gestion des anomalies', text: 'Assistance dédiée en cas de colis endommagé ou non conforme.' },
+                ].map((item, idx) => {
+                  const isOpen = mobileBuyerAccordion === idx
+                  return (
+                    <div key={item.title} className="mobile-accord-row">
+                      <button
+                        type="button"
+                        className="mobile-accord-btn"
+                        onClick={() => setMobileBuyerAccordion(isOpen ? null : idx)}
+                        aria-expanded={isOpen}
+                      >
+                        <span className="mobile-accord-title">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-teal" />
+                          <strong>{item.title}</strong>
+                        </span>
+                        {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                      </button>
+                      {isOpen && (
+                        <p className="mobile-accord-desc">{item.text}</p>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
             </div>
             <div className="feature-card-footer" style={{ marginTop: '20px' }}>
               <span className="feature-pill">
@@ -936,12 +1009,45 @@ export default function Page() {
               <p style={{ marginBottom: '16px', fontSize: '14px' }}>
                 Expédiez vos commandes en sachant que le paiement est déjà garanti et réservé.
               </p>
-              <ul style={{ paddingLeft: '18px', margin: 0, color: 'var(--muted)', fontSize: '13.5px', lineHeight: 2 }}>
+
+              {/* Desktop Full List */}
+              <ul className="desktop-only" style={{ paddingLeft: '18px', margin: 0, color: 'var(--muted)', fontSize: '13.5px', lineHeight: 2 }}>
                 <li><strong>Paiement garanti d’avance :</strong> notification de réservation avant l’envoi.</li>
                 <li><strong>Conditions prévisibles :</strong> les règles de règlement sont convenues dès le départ.</li>
                 <li><strong>Suivi de livraison synchronisé :</strong> preuve d’acheminement partagée en temps réel.</li>
                 <li><strong>Règlement rapide :</strong> les fonds sont débloqués immédiatement après validation.</li>
               </ul>
+
+              {/* Mobile Accordion Items */}
+              <div className="mobile-protected-accordion mobile-only">
+                {[
+                  { title: 'Paiement garanti d’avance', text: 'Notification de réservation avant l’envoi.' },
+                  { title: 'Conditions prévisibles', text: 'Les règles de règlement sont convenues dès le départ.' },
+                  { title: 'Suivi de livraison synchronisé', text: 'Preuve d’acheminement partagée en temps réel.' },
+                  { title: 'Règlement rapide', text: 'Les fonds sont débloqués immédiatement après validation.' },
+                ].map((item, idx) => {
+                  const isOpen = mobileSellerAccordion === idx
+                  return (
+                    <div key={item.title} className="mobile-accord-row">
+                      <button
+                        type="button"
+                        className="mobile-accord-btn"
+                        onClick={() => setMobileSellerAccordion(isOpen ? null : idx)}
+                        aria-expanded={isOpen}
+                      >
+                        <span className="mobile-accord-title">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-gold" />
+                          <strong>{item.title}</strong>
+                        </span>
+                        {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                      </button>
+                      {isOpen && (
+                        <p className="mobile-accord-desc">{item.text}</p>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
             </div>
             <div className="feature-card-footer" style={{ marginTop: '20px' }}>
               <span className="feature-pill" style={{ color: '#8c6e00', borderColor: 'rgba(252, 203, 26, 0.3)' }}>
@@ -1078,7 +1184,19 @@ export default function Page() {
                 <h3>{transactionSteps[step].title}</h3>
                 <p className="display-main-desc">{transactionSteps[step].desc}</p>
 
-                <div className="display-checkpoints">
+                <div className="mobile-only demo-tech-toggle-box">
+                  <button
+                    type="button"
+                    className="mobile-details-btn"
+                    onClick={() => setShowDemoTechDetails(!showDemoTechDetails)}
+                    aria-expanded={showDemoTechDetails}
+                  >
+                    <span>{showDemoTechDetails ? 'Masquer les détails techniques' : 'Voir les détails techniques'}</span>
+                    {showDemoTechDetails ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
+
+                <div className={`display-checkpoints ${!showDemoTechDetails ? 'mobile-hidden' : ''}`}>
                   <div className="checkpoints-title">CONTRÔLES EXÉCUTÉS À CETTE ÉTAPE :</div>
                   <ul>
                     {transactionSteps[step].points.map((pt, idx) => (
@@ -1239,19 +1357,34 @@ export default function Page() {
           {/* Download Action Box */}
           <div className="app-action-box">
             <div className="app-btn-group">
-              <a className="button button-navy app-download-btn" href="#download">
+              <a className="button button-navy app-download-btn" href={APK_DOWNLOAD_URL} download="dinari-v1.0.5.apk">
                 <Download className="w-4 h-4" />
-                <span>Télécharger l’application Android</span>
-                <ArrowUpRight className="app-btn-arrow" />
+                <span className="desktop-only">Télécharger l’application Android</span>
+                <span className="mobile-only">Télécharger pour Android</span>
+                <ArrowUpRight className="app-btn-arrow desktop-only" />
               </a>
-              <a className="app-qr-link" href="#download">
+              <a className="app-qr-link desktop-only" href="#download">
                 <QrCode className="w-4 h-4" />
                 <span>Scanner le QR Code</span>
               </a>
             </div>
 
+            {/* Mobile collapsible specs button */}
+            <div className="mobile-only" style={{ marginTop: '12px', textAlign: 'center' }}>
+              <button
+                type="button"
+                className="mobile-details-btn"
+                onClick={() => setShowApkSpecs(!showApkSpecs)}
+                aria-expanded={showApkSpecs}
+                style={{ margin: '0 auto' }}
+              >
+                <span>{showApkSpecs ? 'Masquer les détails techniques' : 'Détails techniques de l’application'}</span>
+                {showApkSpecs ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
+            </div>
+
             {/* Spec & Security Badges Strip */}
-            <div className="app-specs-strip">
+            <div className={`app-specs-strip ${!showApkSpecs ? 'mobile-hidden' : ''}`}>
               <div className="app-spec-item">
                 <span className="spec-label">SYSTÈME</span>
                 <b>Android 8.0+</b>
@@ -1262,7 +1395,7 @@ export default function Page() {
               </div>
               <div className="app-spec-item">
                 <span className="spec-label">TYPE</span>
-                <b>Application sécurisée</b>
+                <b>arm64-v8a (28.4 Mo)</b>
               </div>
               <div className="app-spec-item">
                 <span className="spec-label">SÉCURITÉ</span>
@@ -1477,28 +1610,74 @@ export default function Page() {
             </h2>
 
             <p className="engine-mobile-lead">
-              L’infrastructure de séquestre et de règlement programmable pour les marketplaces et plateformes algériennes.
+              L’infrastructure de confiance pour les plateformes digitales.
             </p>
 
-            {/* 4 Key Pillars */}
+            {/* 6 Key Modules Grid (Compact 2 columns) */}
             <div className="engine-mobile-perks">
               <div className="engine-perk-item">
-                <Code2 className="perk-icon" />
-                <span>API REST &amp; Webhooks</span>
+                <ShieldCheck className="perk-icon" />
+                <span>Escrow</span>
               </div>
               <div className="engine-perk-item">
-                <ShieldCheck className="perk-icon" />
-                <span>Séquestre programmable</span>
+                <Scale className="perk-icon" />
+                <span>Business Rules</span>
+              </div>
+              <div className="engine-perk-item">
+                <Activity className="perk-icon" />
+                <span>Ledger</span>
+              </div>
+              <div className="engine-perk-item">
+                <BadgeCheck className="perk-icon" />
+                <span>Settlement</span>
+              </div>
+              <div className="engine-perk-item">
+                <Repeat className="perk-icon" />
+                <span>Reconciliation</span>
               </div>
               <div className="engine-perk-item">
                 <Zap className="perk-icon" />
-                <span>Intégration rapide</span>
-              </div>
-              <div className="engine-perk-item">
-                <Terminal className="perk-icon" />
-                <span>Environnement Sandbox</span>
+                <span>Webhooks</span>
               </div>
             </div>
+
+            {/* Programmable default summary */}
+            <div className="engine-mobile-specs-summary">
+              <div className="engine-spec-chip">API programmable</div>
+              <div className="engine-spec-chip">REST + Webhooks</div>
+              <div className="engine-spec-chip">Sandbox DZD</div>
+            </div>
+
+            {/* Collapsible Architecture Details */}
+            <div className="mobile-arch-toggle-wrap">
+              <button
+                type="button"
+                className="mobile-details-btn"
+                onClick={() => setShowEngineArchMobile(!showEngineArchMobile)}
+                aria-expanded={showEngineArchMobile}
+                style={{ margin: '10px auto' }}
+              >
+                <span>{showEngineArchMobile ? 'Masquer l’architecture' : 'Voir l’architecture'}</span>
+                {showEngineArchMobile ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
+            </div>
+
+            {showEngineArchMobile && (
+              <div className="engine-mobile-arch-detail">
+                <div className="mobile-arch-item">
+                  <strong>01. Votre Application</strong>
+                  <p>Consomme l’API Engine via HTTPS / TLS 1.3</p>
+                </div>
+                <div className="mobile-arch-item">
+                  <strong>02. Dinari Engine</strong>
+                  <p>Orchestre les états finis, le séquestre et les webhooks HMAC</p>
+                </div>
+                <div className="mobile-arch-item">
+                  <strong>03. Réseaux &amp; Règlements</strong>
+                  <p>Comptes séquestres dédiés et canaux de compensation SATIM</p>
+                </div>
+              </div>
+            )}
 
             {/* Direct Link Actions to Dinari Engine */}
             <div className="engine-mobile-actions">
@@ -1836,10 +2015,24 @@ export default function Page() {
               <span>● Chiffrement AES-256</span>
               <span>● SLA Disponibilité 99.99%</span>
             </div>
+
+            {/* Mobile Toggle Code Example Button */}
+            <div className="mobile-only" style={{ marginTop: '16px', textAlign: 'center' }}>
+              <button
+                type="button"
+                className="mobile-details-btn"
+                onClick={() => setShowApiCodeMobile(!showApiCodeMobile)}
+                aria-expanded={showApiCodeMobile}
+                style={{ margin: '0 auto' }}
+              >
+                <span>{showApiCodeMobile ? 'Masquer l’exemple API' : 'Voir un exemple API'}</span>
+                {showApiCodeMobile ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
+            </div>
           </div>
 
           {/* Right Column: Interactive API Console */}
-          <div className="api-console-col">
+          <div className={`api-console-col ${!showApiCodeMobile ? 'mobile-hidden' : ''}`}>
             <div className="api-console-window">
               {/* Tab Selector */}
               <div className="console-tabs-bar">
@@ -1939,10 +2132,14 @@ export default function Page() {
 
         {/* 6-Card Modern Fintech Security Grid */}
         <div className="trust-grid-v2">
-          {trustFeatures.map((item) => {
+          {trustFeatures.map((item, idx) => {
             const Icon = item.icon
+            const isExtraMobile = idx >= 4
             return (
-              <div className="trust-card-v2" key={item.title}>
+              <div
+                className={`trust-card-v2 ${isExtraMobile && !showAllSecurityMobile ? 'mobile-hidden' : ''}`}
+                key={item.title}
+              >
                 <div className="trust-card-ambient" />
                 <div className="trust-card-top">
                   <div className="trust-icon-box">
@@ -1969,6 +2166,20 @@ export default function Page() {
               </div>
             )
           })}
+        </div>
+
+        {/* Mobile Accordion Toggle for Extra Security Items */}
+        <div className="mobile-only" style={{ textAlign: 'center', margin: '14px 0 18px' }}>
+          <button
+            type="button"
+            className="mobile-details-btn"
+            onClick={() => setShowAllSecurityMobile(!showAllSecurityMobile)}
+            aria-expanded={showAllSecurityMobile}
+            style={{ margin: '0 auto' }}
+          >
+            <span>{showAllSecurityMobile ? 'Masquer les mesures complémentaires' : 'Voir toutes les mesures de sécurité'}</span>
+            {showAllSecurityMobile ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+          </button>
         </div>
 
         {/* Bottom Trust & Assurance Guarantee Strip */}
@@ -2180,8 +2391,22 @@ export default function Page() {
               </div>
             </div>
 
+            {/* Mobile Toggle for JSON Data */}
+            <div className="mobile-only" style={{ gridColumn: '1 / -1', textAlign: 'center', marginTop: '10px' }}>
+              <button
+                type="button"
+                className="mobile-details-btn"
+                onClick={() => setShowCycleDataMobile(!showCycleDataMobile)}
+                aria-expanded={showCycleDataMobile}
+                style={{ margin: '0 auto' }}
+              >
+                <span>{showCycleDataMobile ? 'Masquer les données techniques' : 'Voir les données techniques'}</span>
+                {showCycleDataMobile ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
+            </div>
+
             {/* Right: Code / JSON Ledger Event */}
-            <div className="inspector-code-pane">
+            <div className={`inspector-code-pane ${!showCycleDataMobile ? 'mobile-hidden' : ''}`}>
               <div className="code-pane-bar">
                 <div className="code-pane-dots">
                   <span className="dot dot-red" />
@@ -2322,8 +2547,8 @@ export default function Page() {
               </div>
             </div>
 
-            {/* Right Column: QR Scanner Station */}
-            <div className="download-qr-col">
+            {/* Right Column: QR Scanner Station (Desktop Only) */}
+            <div className="download-qr-col desktop-only">
               <div className="qr-station-box">
                 <div className="qr-station-head">
                   <div className="qr-station-title">
@@ -2610,9 +2835,15 @@ export default function Page() {
           </div>
 
           {/* Column 2: Écosystème & Produit */}
-          <div className="footer-col">
-            <h4 className="footer-col-title">Écosystème & Produit</h4>
-            <ul className="footer-link-list">
+          <div className={`footer-col ${footerGroupMobile === 'eco' ? 'is-open' : ''}`}>
+            <h4 
+              className="footer-col-title footer-mobile-toggle" 
+              onClick={() => setFooterGroupMobile(footerGroupMobile === 'eco' ? null : 'eco')}
+            >
+              <span>Écosystème &amp; Produit</span>
+              <ChevronDown className="footer-toggle-chevron mobile-only" />
+            </h4>
+            <ul className={`footer-link-list ${footerGroupMobile === 'eco' ? 'is-expanded' : ''}`}>
               <li>
                 <a href="#download">
                   <span>Application Mobile Dinari</span>
@@ -2629,7 +2860,7 @@ export default function Page() {
                 <a href="#fonctionnement">Comment ça marche</a>
               </li>
               <li>
-                <a href="#avantages">Protection Acheteur & Vendeur</a>
+                <a href="#avantages">Protection Acheteur &amp; Vendeur</a>
               </li>
               <li>
                 <a href="#cycle">Cycle de la transaction</a>
@@ -2638,9 +2869,15 @@ export default function Page() {
           </div>
 
           {/* Column 3: Sécurité & Confiance */}
-          <div className="footer-col">
-            <h4 className="footer-col-title">Sécurité & Confiance</h4>
-            <ul className="footer-link-list">
+          <div className={`footer-col ${footerGroupMobile === 'sec' ? 'is-open' : ''}`}>
+            <h4 
+              className="footer-col-title footer-mobile-toggle" 
+              onClick={() => setFooterGroupMobile(footerGroupMobile === 'sec' ? null : 'sec')}
+            >
+              <span>Sécurité &amp; Confiance</span>
+              <ChevronDown className="footer-toggle-chevron mobile-only" />
+            </h4>
+            <ul className={`footer-link-list ${footerGroupMobile === 'sec' ? 'is-expanded' : ''}`}>
               <li>
                 <a href="#securite">
                   <ShieldCheck className="footer-mini-icon" />
@@ -2672,9 +2909,15 @@ export default function Page() {
           </div>
 
           {/* Column 4: Développeurs & Assistance */}
-          <div className="footer-col">
-            <h4 className="footer-col-title">Développeurs & Support</h4>
-            <ul className="footer-link-list">
+          <div className={`footer-col ${footerGroupMobile === 'dev' ? 'is-open' : ''}`}>
+            <h4 
+              className="footer-col-title footer-mobile-toggle" 
+              onClick={() => setFooterGroupMobile(footerGroupMobile === 'dev' ? null : 'dev')}
+            >
+              <span>Développeurs &amp; Support</span>
+              <ChevronDown className="footer-toggle-chevron mobile-only" />
+            </h4>
+            <ul className={`footer-link-list ${footerGroupMobile === 'dev' ? 'is-expanded' : ''}`}>
               <li>
                 <a href="/engine#api">
                   <Terminal className="footer-mini-icon" />
@@ -2693,7 +2936,7 @@ export default function Page() {
               <li>
                 <a href="mailto:contact@dinari.com">
                   <Mail className="footer-mini-icon" />
-                  <span>Support Technique & B2B</span>
+                  <span>Support Technique &amp; B2B</span>
                 </a>
               </li>
               <li>
