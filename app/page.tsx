@@ -710,7 +710,7 @@ export default function Page() {
       <div className="container hero-content">
         <div className="hero-copy">
           <div className="kicker">
-            <span /> WALLET DIGITAL · 58 WILAYAS
+            <span /> WALLET DIGITAL &amp; SÉQUESTRE
           </div>
           <h1>
             Plus qu’un portefeuille.<br />
