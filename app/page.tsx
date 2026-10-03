@@ -400,40 +400,6 @@ function PhoneMockup({ className = '' }: { className?: string }) {
           />
           <div className="phone-reflection" />
           <span className="live-status-ping" title="Livraison en cours" />
-
-          {/* Dinari App Real-time Capabilities Dock inside Mockup */}
-          <div className="phone-mockup-dock">
-            <div className="mockup-dock-title">
-              <span className="dock-dot" />
-              <span>FONCTIONNALITÉS DINARI APP</span>
-            </div>
-            <div className="mockup-dock-grid">
-              <div className="dock-item">
-                <div className="dock-icon-box gold">
-                  <Lock className="w-3.5 h-3.5" />
-                </div>
-                <span>Séquestre</span>
-              </div>
-              <div className="dock-item">
-                <div className="dock-icon-box teal">
-                  <ArrowRightLeft className="w-3.5 h-3.5" />
-                </div>
-                <span>Transfert P2P</span>
-              </div>
-              <div className="dock-item">
-                <div className="dock-icon-box teal">
-                  <QrCode className="w-3.5 h-3.5" />
-                </div>
-                <span>Paiement QR</span>
-              </div>
-              <div className="dock-item">
-                <div className="dock-icon-box green">
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                </div>
-                <span>Protection</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

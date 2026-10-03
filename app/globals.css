@@ -8522,106 +8522,6 @@ html{scroll-behavior:smooth}.engine-page{overflow:hidden}.engine-nav{position:st
   color: var(--gold);
 }
 
-/* Inside Phone Mockup Capabilities Dock */
-.phone-mockup-dock {
-  position: absolute;
-  left: 12px;
-  right: 12px;
-  bottom: 46px;
-  z-index: 9;
-  background: rgba(4, 18, 38, 0.94);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 18px;
-  padding: 10px 10px 8px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
-}
-
-.mockup-dock-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  font: 8.5px monospace;
-  font-weight: 800;
-  letter-spacing: 0.8px;
-  color: #94a3b8;
-  margin-bottom: 8px;
-}
-
-.dock-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 6px var(--gold);
-}
-
-.mockup-dock-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
-}
-
-.dock-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  padding: 6px 3px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  transition: all 0.2s ease;
-}
-
-.dock-item:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(252, 203, 26, 0.3);
-  transform: translateY(-2px);
-}
-
-.dock-icon-box {
-  width: 26px;
-  height: 26px;
-  border-radius: 7px;
-  display: grid;
-  place-items: center;
-}
-
-.dock-icon-box svg {
-  width: 13px;
-  height: 13px;
-}
-
-.dock-icon-box.gold {
-  background: rgba(252, 203, 26, 0.15);
-  color: var(--gold);
-  border: 1px solid rgba(252, 203, 26, 0.25);
-}
-
-.dock-icon-box.teal {
-  background: rgba(0, 128, 128, 0.2);
-  color: #4bd2aa;
-  border: 1px solid rgba(0, 128, 128, 0.3);
-}
-
-.dock-icon-box.green {
-  background: rgba(16, 185, 129, 0.18);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.25);
-}
-
-.dock-item span {
-  font-size: 8.5px;
-  font-weight: 700;
-  color: #e2e8f0;
-  white-space: nowrap;
-  line-height: 1;
-}
-
 /* Visual Label Styled as Wallet Card (Desktop) */
 .visual-label {
   position: absolute;
@@ -8798,286 +8698,7 @@ html{scroll-behavior:smooth}.engine-page{overflow:hidden}.engine-nav{position:st
   }
 }
 
-/* 2. Hero Section on Mobile: Side-by-side cohesive layout with compact mockup next to text */
-@media (max-width: 768px) {
-  .hero {
-    min-height: auto !important;
-    padding: 55px 0 20px !important;
-    overflow: hidden !important;
-  }
-  .hero-content {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 14px !important;
-  }
-  .hero-copy {
-    flex: 1 1 auto !important;
-    min-width: 0 !important;
-  }
-  .kicker {
-    font-size: 8px !important;
-    letter-spacing: 0.8px !important;
-    margin-bottom: 4px !important;
-  }
-  .hero h1 {
-    font-size: clamp(19px, 5.2vw, 25px) !important;
-    line-height: 1.1 !important;
-    letter-spacing: -0.03em !important;
-    margin: 4px 0 8px !important;
-  }
-  .hero h1 br {
-    display: none !important;
-  }
-  .hero-lead-text {
-    font-size: 11px !important;
-    line-height: 1.35 !important;
-    margin-bottom: 10px !important;
-    color: #d1dfed !important;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 3 !important;
-    -webkit-box-orient: vertical !important;
-    overflow: hidden !important;
-  }
-  .hero-buttons {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 6px !important;
-    margin-bottom: 4px !important;
-  }
-  .hero-buttons .button {
-    padding: 7px 11px !important;
-    font-size: 10.5px !important;
-    border-radius: 7px !important;
-  }
-  .hero-buttons .text-link {
-    font-size: 10px !important;
-    padding: 5px 8px !important;
-  }
-  .hero-trust {
-    display: none !important;
-  }
-
-  /* Compact Phone Mockup UI beside text */
-  .hero-visual {
-    flex: 0 0 130px !important;
-    width: 130px !important;
-    min-height: auto !important;
-    transform: none !important;
-    margin: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    position: relative !important;
-  }
-  .hero-visual .phone-wrap {
-    width: 130px !important;
-    perspective: none !important;
-    position: relative !important;
-  }
-  .hero-visual .phone {
-    width: 130px !important;
-    height: 255px !important;
-    border-width: 4px !important;
-    border-radius: 20px !important;
-    transform: none !important;
-    animation: none !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
-  }
-  .hero-visual .phone-screen {
-    border-radius: 16px !important;
-  }
-  .hero-visual .dashboard-reference {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    border-radius: 0 !important;
-  }
-  .hero-visual .phone-notch {
-    width: 42px !important;
-    height: 11px !important;
-    top: 4px !important;
-  }
-  /* In-screen live status badge: Removed on mobile as requested */
-  .hero-visual .phone-screen-pill {
-    display: none !important;
-  }
-  .hero-visual .phone-pill-beacon {
-    display: none !important;
-  }
-  /* Remove the flashing green radar circle on mobile */
-  .hero-visual .live-status-ping {
-    display: none !important;
-  }
-
-  /* Micro Floating Chip 1: Transfert P2P Instantané positioned gracefully lower on the left */
-  .chip-one {
-    display: flex !important;
-    flex-direction: column !important;
-    position: absolute !important;
-    left: -22px !important;
-    top: 130px !important;
-    padding: 5px 8px !important;
-    gap: 2px !important;
-    border-radius: 9px !important;
-    background: rgba(6, 27, 59, 0.97) !important;
-    border: 1px solid rgba(0, 204, 136, 0.45) !important;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55) !important;
-    z-index: 7 !important;
-    animation: none !important;
-  }
-  .chip-one .chip-icon-box {
-    display: none !important;
-  }
-  .chip-one .chip-content {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 1.5px !important;
-  }
-  .chip-one .chip-content strong {
-    font-size: 7.5px !important;
-    font-family: monospace !important;
-    font-weight: 800 !important;
-    letter-spacing: 0.3px !important;
-    color: #4ade80 !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 3px !important;
-    line-height: 1.2 !important;
-  }
-  .chip-one .chip-content strong::before {
-    content: "✓";
-    font-size: 7.5px !important;
-    color: #4ade80 !important;
-  }
-  .chip-one .chip-content small {
-    font-size: 6px !important;
-    color: #8da4be !important;
-    display: block !important;
-    line-height: 1.2 !important;
-  }
-
-  /* Micro Floating Chip 2: Solde Portefeuille & Séquestre positioned near top-right */
-  .chip-two {
-    display: flex !important;
-    position: absolute !important;
-    right: -14px !important;
-    top: 36px !important;
-    bottom: auto !important;
-    padding: 5px 8px !important;
-    gap: 2.5px !important;
-    border-radius: 9px !important;
-    background: rgba(6, 27, 59, 0.97) !important;
-    border: 1px solid rgba(252, 203, 26, 0.45) !important;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55) !important;
-    z-index: 7 !important;
-    animation: none !important;
-  }
-  .chip-two .chip-header-line {
-    font-size: 6px !important;
-    gap: 3px !important;
-  }
-  .chip-two .chip-wallet-icon {
-    width: 8px !important;
-    height: 8px !important;
-  }
-  .chip-amount-row {
-    gap: 2px !important;
-  }
-  .chip-amount-row strong {
-    font-size: 11px !important;
-    line-height: 1 !important;
-  }
-  .chip-amount-row small {
-    font-size: 6.5px !important;
-  }
-  .chip-escrow-pill {
-    font-size: 5.5px !important;
-    gap: 2px !important;
-  }
-  .chip-escrow-pill svg {
-    width: 6px !important;
-    height: 6px !important;
-  }
-  .hero-node {
-    display: none !important;
-  }
-
-  /* Wallet 100% Digital Trust Pill: Placed at extreme bottom-left, protruding slightly from the mockup */
-  .visual-label {
-    position: absolute !important;
-    top: auto !important;
-    bottom: -12px !important;
-    left: -22px !important;
-    right: auto !important;
-    transform: none !important;
-    margin-top: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 2px !important;
-    padding: 5px 8px !important;
-    border-radius: 9px !important;
-    background: rgba(6, 27, 59, 0.97) !important;
-    border: 1px solid rgba(252, 203, 26, 0.45) !important;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55) !important;
-    color: #fff !important;
-    width: auto !important;
-    max-width: 125px !important;
-    box-sizing: border-box !important;
-    text-align: left !important;
-    z-index: 8 !important;
-  }
-  .visual-label-head {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    gap: 3px !important;
-    font: 6.5px monospace !important;
-    font-weight: 800 !important;
-    color: #8da4be !important;
-    letter-spacing: 0.3px !important;
-  }
-  .visual-label .pulse {
-    width: 3.5px !important;
-    height: 3.5px !important;
-    margin-right: 0 !important;
-    flex-shrink: 0 !important;
-  }
-  .visual-label-body {
-    display: flex !important;
-    align-items: baseline !important;
-    justify-content: flex-start !important;
-    gap: 3px !important;
-  }
-  .visual-label-body strong {
-    font-size: 11px !important;
-    font-weight: 900 !important;
-    color: #fff !important;
-    line-height: 1 !important;
-  }
-  .visual-label-body small {
-    font-size: 6.5px !important;
-    font-weight: 800 !important;
-    color: var(--gold) !important;
-  }
-  .visual-label-sub {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    gap: 2.5px !important;
-    font-size: 6px !important;
-    color: #8da4be !important;
-  }
-  .visual-sub-icon {
-    width: 7px !important;
-    height: 7px !important;
-    color: #00cc88 !important;
-    flex-shrink: 0 !important;
-  }
-}
+/* 2. Hero Section Mobile: Retained in mobile-first media query at bottom of stylesheet */
 
 /* 3. Engine Hero on Mobile: Compact view with immediately visible terminal */
 @media (max-width: 768px) {
@@ -11585,65 +11206,101 @@ html, body {
     text-align: center !important;
   }
 
-  /* Phone Mockup visual: Prestigious, centered, breathing room */
+  /* Phone Mockup visual: Perfectly proportioned and aligned like the reference UI */
   .hero-visual {
-    min-height: 480px !important;
-    margin: 10px 0 0 !important;
-    transform: none !important;
+    min-height: 520px !important;
+    margin: 18px 0 10px !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     position: relative !important;
     width: 100% !important;
+    overflow: visible !important;
   }
 
-  /* Hero Visual Mockup Dock & Micro Elements */
   .hero-visual .phone-wrap {
-    width: 270px !important;
+    width: 260px !important;
     margin: 0 auto !important;
+    position: relative !important;
   }
 
   .hero-visual .phone {
-    width: 270px !important;
-    height: 540px !important;
-    border-width: 8px !important;
+    width: 260px !important;
+    height: 520px !important;
+    border: 7px solid #071c33 !important;
     border-radius: 36px !important;
     margin: 0 auto !important;
+    transform: rotate(4deg) !important;
+    animation: phoneFloat 6.5s ease-in-out infinite !important;
+    box-shadow: 0 24px 60px rgba(0, 15, 35, 0.65), 0 8px 20px rgba(0, 128, 128, 0.2) !important;
   }
 
-  /* « SÉQUESTRE ACTIF » : Petite, discrète et élégante sur mobile */
+  .hero-visual .phone-screen {
+    border-radius: 29px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+
+  .hero-visual .dashboard-reference {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: top center !important;
+  }
+
+  /* Badge 1: Top Right - SÉQUESTRE ACTIF (Compact & Clean Fintech Badge) */
   .hero-visual .visual-label {
-    top: -12px !important;
-    right: 50% !important;
-    transform: translateX(50%) !important;
-    font-size: 8.5px !important;
-    padding: 4px 10px !important;
-    border-radius: 20px !important;
-    gap: 3px !important;
-    white-space: nowrap !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45) !important;
-    border: 1px solid rgba(252, 203, 26, 0.35) !important;
-    background: rgba(3, 20, 44, 0.94) !important;
-    backdrop-filter: blur(8px) !important;
-    flex-direction: row !important;
-    align-items: center !important;
+    position: absolute !important;
+    top: 6px !important;
+    right: -6px !important;
+    left: auto !important;
+    transform: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 2px !important;
+    padding: 6px 10px 6px !important;
+    border-radius: 12px !important;
+    background: rgba(5, 20, 42, 0.95) !important;
+    border: 1px solid rgba(252, 203, 26, 0.4) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    z-index: 10 !important;
+    animation: chipFloatThree 6s ease-in-out infinite 1.2s !important;
   }
 
   .hero-visual .visual-label-head {
-    display: none !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    font: 7px monospace !important;
+    font-weight: 800 !important;
+    color: #8da4be !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 1px !important;
+  }
+
+  .hero-visual .visual-label .pulse {
+    width: 4px !important;
+    height: 4px !important;
+    margin-right: 2px !important;
   }
 
   .hero-visual .visual-label-body {
-    display: inline-flex !important;
-    align-items: center !important;
+    display: flex !important;
+    align-items: baseline !important;
     gap: 4px !important;
   }
 
   .hero-visual .visual-label-body strong {
-    font-size: 10px !important;
-    font-weight: 800 !important;
-    letter-spacing: 0.3px !important;
+    font-size: 13px !important;
+    font-weight: 900 !important;
     color: #ffffff !important;
+    letter-spacing: -0.3px !important;
+    line-height: 1 !important;
   }
 
   .hero-visual .visual-label-body small {
@@ -11651,7 +11308,7 @@ html, body {
     font-weight: 800 !important;
     color: var(--gold) !important;
     background: rgba(252, 203, 26, 0.15) !important;
-    padding: 1px 5px !important;
+    padding: 1px 4px !important;
     border-radius: 4px !important;
   }
 
@@ -11659,11 +11316,12 @@ html, body {
     display: inline-flex !important;
     align-items: center !important;
     gap: 3px !important;
-    font-size: 8px !important;
-    color: #94a3b8 !important;
-    border-left: 1px solid rgba(255, 255, 255, 0.18) !important;
-    padding-left: 6px !important;
-    margin-left: 2px !important;
+    font-size: 7.5px !important;
+    color: #8da4be !important;
+    margin-top: 1px !important;
+    border: none !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
   }
 
   .hero-visual .visual-sub-icon {
@@ -11672,106 +11330,121 @@ html, body {
     color: #10b981 !important;
   }
 
-  /* Clean up floating chips on mobile to prevent overlapping */
+  /* Badge 2: Mid Left - Transfert P2P instantané */
   .hero-visual .chip-one {
-    display: none !important;
-  }
-
-  .hero-visual .chip-two {
-    display: none !important;
-  }
-
-  /* Inside Mockup Capabilities Dock */
-  .phone-mockup-dock {
+    display: flex !important;
+    align-items: center !important;
+    gap: 7px !important;
     position: absolute !important;
-    left: 8px !important;
-    right: 8px !important;
-    bottom: 38px !important;
-    z-index: 9 !important;
-    background: rgba(5, 20, 37, 0.92) !important;
-    backdrop-filter: blur(14px) !important;
-    -webkit-backdrop-filter: blur(14px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    border-radius: 16px !important;
-    padding: 8px 6px 7px !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+    left: -12px !important;
+    top: 36% !important;
+    padding: 7px 11px !important;
+    border-radius: 11px !important;
+    background: rgba(5, 20, 42, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.55) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    z-index: 10 !important;
+    animation: chipFloatOne 5s ease-in-out infinite !important;
   }
 
-  .mockup-dock-title {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 4px !important;
-    font: 7.5px monospace !important;
-    font-weight: 800 !important;
-    letter-spacing: 0.6px !important;
-    color: #94a3b8 !important;
-    margin-bottom: 6px !important;
-  }
-
-  .dock-dot {
-    width: 4px !important;
-    height: 4px !important;
-    border-radius: 50% !important;
-    background: var(--gold) !important;
-    box-shadow: 0 0 5px var(--gold) !important;
-  }
-
-  .mockup-dock-grid {
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: 4px !important;
-  }
-
-  .dock-item {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 3px !important;
-    padding: 4px 2px !important;
-    border-radius: 8px !important;
-    background: rgba(255, 255, 255, 0.04) !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-  }
-
-  .dock-icon-box {
+  .hero-visual .chip-one .chip-icon-box {
     width: 22px !important;
     height: 22px !important;
     border-radius: 6px !important;
+    background: rgba(16, 185, 129, 0.15) !important;
+    color: #10b981 !important;
     display: grid !important;
     place-items: center !important;
+    flex-shrink: 0 !important;
   }
 
-  .dock-icon-box svg {
-    width: 11px !important;
-    height: 11px !important;
+  .hero-visual .chip-one .chip-icon-box svg {
+    width: 12px !important;
+    height: 12px !important;
   }
 
-  .dock-icon-box.gold {
-    background: rgba(252, 203, 26, 0.15) !important;
-    color: var(--gold) !important;
-    border: 1px solid rgba(252, 203, 26, 0.25) !important;
+  .hero-visual .chip-one .chip-content strong {
+    font-size: 9.5px !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    display: block !important;
+    line-height: 1.2 !important;
   }
 
-  .dock-icon-box.teal {
-    background: rgba(0, 128, 128, 0.2) !important;
-    color: #4bd2aa !important;
-    border: 1px solid rgba(0, 128, 128, 0.3) !important;
-  }
-
-  .dock-icon-box.green {
-    background: rgba(16, 185, 129, 0.18) !important;
-    color: #34d399 !important;
-    border: 1px solid rgba(16, 185, 129, 0.25) !important;
-  }
-
-  .dock-item span {
+  .hero-visual .chip-one .chip-content small {
     font-size: 7.5px !important;
-    font-weight: 700 !important;
-    color: #e2e8f0 !important;
-    white-space: nowrap !important;
+    color: #8da4be !important;
+    display: block !important;
+  }
+
+  /* Badge 3: Bottom Right - SOLDE DU WALLET 51 600 DZD */
+  .hero-visual .chip-two {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+    position: absolute !important;
+    right: -8px !important;
+    bottom: 40px !important;
+    padding: 8px 12px !important;
+    border-radius: 12px !important;
+    background: rgba(5, 20, 42, 0.96) !important;
+    border: 1px solid rgba(252, 203, 26, 0.4) !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.65) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    z-index: 10 !important;
+    animation: chipFloatTwo 5.5s ease-in-out infinite 0.7s !important;
+  }
+
+  .hero-visual .chip-two .chip-header-line {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    font: 7px monospace !important;
+    font-weight: 800 !important;
+    color: #8da4be !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  .hero-visual .chip-two .chip-wallet-icon {
+    width: 10px !important;
+    height: 10px !important;
+    color: var(--gold) !important;
+  }
+
+  .hero-visual .chip-two .chip-amount-row {
+    display: flex !important;
+    align-items: baseline !important;
+    gap: 4px !important;
+  }
+
+  .hero-visual .chip-two .chip-amount-row strong {
+    font-size: 16px !important;
+    font-weight: 900 !important;
+    color: #ffffff !important;
     line-height: 1 !important;
+  }
+
+  .hero-visual .chip-two .chip-amount-row small {
+    font-size: 8.5px !important;
+    font-weight: 800 !important;
+    color: var(--gold) !important;
+  }
+
+  .hero-visual .chip-two .chip-escrow-pill {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    font-size: 7.5px !important;
+    color: #8da4be !important;
+  }
+
+  .hero-visual .chip-two .chip-gold-icon {
+    width: 8px !important;
+    height: 8px !important;
+    color: var(--gold) !important;
   }
 
   /* Section 4 & 5: Mobile Protected Accordions */
