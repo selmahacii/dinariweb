@@ -383,7 +383,7 @@ function PhoneMockup({ className = '' }: { className?: string }) {
           <span className="live-status-ping" title="Livraison en cours" />
           <div className="phone-screen-pill">
             <span className="phone-pill-beacon" />
-            <span>SATIM Switch · Traçabilité 100%</span>
+            <span>Traçabilité 100%</span>
           </div>
         </div>
       </div>
@@ -731,7 +731,18 @@ export default function Page() {
 
         <div className="hero-visual">
           <div className="visual-label label-top">
-            <span className="pulse" /> Wallet Digital · SATIM 100%
+            <div className="visual-label-head">
+              <span className="pulse" />
+              <span>WALLET DIGITAL</span>
+            </div>
+            <div className="visual-label-body">
+              <strong>100%</strong>
+              <small>CONFORME</small>
+            </div>
+            <div className="visual-label-sub">
+              <ShieldCheck className="w-3 h-3 visual-sub-icon" />
+              <span>Fonds protégés</span>
+            </div>
           </div>
           <PhoneMockup />
 

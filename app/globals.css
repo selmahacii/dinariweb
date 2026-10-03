@@ -8520,6 +8520,72 @@ html{scroll-behavior:smooth}.engine-page{overflow:hidden}.engine-nav{position:st
   color: var(--gold);
 }
 
+/* Visual Label Styled as Wallet Card (Desktop) */
+.visual-label {
+  position: absolute;
+  top: 20px;
+  right: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px 16px;
+  background: rgba(6, 27, 59, 0.96);
+  border: 1px solid rgba(252, 203, 26, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 16px 36px rgba(1, 36, 86, 0.45);
+  backdrop-filter: blur(14px);
+  z-index: 6;
+  animation: chipFloatThree 6s ease-in-out infinite 1.2s;
+  transition: transform 0.3s ease;
+}
+
+.visual-label:hover {
+  transform: scale(1.05);
+  border-color: rgba(252, 203, 26, 0.65);
+}
+
+.visual-label-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: 9.5px monospace;
+  font-weight: 800;
+  color: #8da4be;
+  letter-spacing: 0.5px;
+}
+
+.visual-label-body {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.visual-label-body strong {
+  font-size: 22px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+.visual-label-body small {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 0.5px;
+}
+
+.visual-label-sub {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9.5px;
+  color: #8da4be;
+}
+
+.visual-sub-icon {
+  color: #00cc88;
+}
+
 /* Floating Chip 3 (Bottom Left) */
 .chip-three {
   left: -25px;
@@ -8714,29 +8780,64 @@ html{scroll-behavior:smooth}.engine-page{overflow:hidden}.engine-nav{position:st
     height: 16px !important;
     top: 8px !important;
   }
-  /* Floating Pill repositioned cleanly below the phone as a trust anchor */
+  /* Floating Pill repositioned cleanly below the phone with identical Wallet Card UI */
   .visual-label {
     position: relative !important;
     top: auto !important;
     right: auto !important;
     transform: none !important;
     margin-top: 14px !important;
-    font-size: 10px !important;
-    font-weight: 600 !important;
-    padding: 5px 13px !important;
-    white-space: nowrap !important;
-    border-radius: 20px !important;
-    background: rgba(1, 36, 86, 0.88) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+    padding: 8px 14px !important;
+    border-radius: 12px !important;
+    background: rgba(6, 27, 59, 0.96) !important;
+    border: 1px solid rgba(252, 203, 26, 0.4) !important;
+    box-shadow: 0 10px 24px rgba(1, 36, 86, 0.45) !important;
     color: #fff !important;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    display: inline-flex !important;
+  }
+  .visual-label-head {
+    display: flex !important;
     align-items: center !important;
-    gap: 6px !important;
+    gap: 5px !important;
+    font: 8px monospace !important;
+    font-weight: 800 !important;
+    color: #8da4be !important;
+    letter-spacing: 0.5px !important;
   }
   .visual-label .pulse {
-    width: 6px !important;
-    height: 6px !important;
+    width: 5px !important;
+    height: 5px !important;
+    margin-right: 0 !important;
+  }
+  .visual-label-body {
+    display: flex !important;
+    align-items: baseline !important;
+    gap: 4px !important;
+  }
+  .visual-label-body strong {
+    font-size: 16px !important;
+    font-weight: 900 !important;
+    color: #fff !important;
+    letter-spacing: -0.5px !important;
+  }
+  .visual-label-body small {
+    font-size: 9px !important;
+    font-weight: 800 !important;
+    color: var(--gold) !important;
+  }
+  .visual-label-sub {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    font-size: 8px !important;
+    color: #8da4be !important;
+  }
+  .visual-sub-icon {
+    width: 10px !important;
+    height: 10px !important;
+    color: #00cc88 !important;
   }
   .chip-one {
     left: -14px !important;
