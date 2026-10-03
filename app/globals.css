@@ -5732,7 +5732,7 @@ html{scroll-behavior:smooth}.engine-page{overflow:hidden}.engine-nav{position:st
 .footer-v2-status-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 14px 22px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -8348,6 +8348,30 @@ html{scroll-behavior:smooth}.engine-page{overflow:hidden}.engine-nav{position:st
 /* ==========================================================================
    Enriched Phone Mockup & Floating Chips
    ========================================================================== */
+.phone-screen {
+  background: #021226 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.dashboard-reference {
+  width: 90% !important;
+  height: auto !important;
+  max-height: 94% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  border-radius: 24px !important;
+  margin: auto !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45) !important;
+  transition: transform 0.3s ease !important;
+}
+
+.phone-wrap:hover .dashboard-reference {
+  transform: scale(1.02) !important;
+}
+
 .phone-screen-pill {
   position: absolute;
   top: 48px;

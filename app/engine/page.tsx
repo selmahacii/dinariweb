@@ -1131,12 +1131,6 @@ export default function EnginePage() {
       <footer className="footer-v2" id="footer">
         <div className="container footer-v2-container">
           <div className="footer-v2-status-bar">
-            <div className="footer-status-indicator">
-              <span className="footer-status-dot" />
-              <span className="footer-status-text">
-                Réseaux SATIM, CIB & Edahabia : <strong>Systèmes 100% Opérationnels</strong>
-              </span>
-            </div>
             <div className="footer-quick-email">
               <Mail className="footer-quick-email-icon" />
               <span>Assistance directe :</span>
