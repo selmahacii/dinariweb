@@ -395,7 +395,7 @@ function PhoneMockup({ className = '' }: { className?: string }) {
         <div className="phone-screen">
           <img
             className="dashboard-reference"
-            src="/images/dinari-dashboard.png"
+            src="/images/dinarii.png"
             alt="Aperçu de l’application Dinari avec solde, commandes et opérations récentes"
           />
           <div className="phone-reflection" />
